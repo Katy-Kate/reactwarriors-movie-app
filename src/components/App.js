@@ -19,6 +19,8 @@ export default class App extends React.Component {
 
   onChangeFilters = event => {
     const value = event.target.value;
+    const name = event.target.name;
+
     const newFilters = {
       ...this.state.filters,
       [name]: value
@@ -27,7 +29,8 @@ export default class App extends React.Component {
       filters: newFilters
     });
   };
-  getTotalPages = total_pages => {
+
+  onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
     this.setState({
       page,
       total_pages
