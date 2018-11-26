@@ -5,45 +5,19 @@ import MoviesList from "./Movies/MoviesList";
 export default class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
       filters: {
-        sort_by: "vote_average.desc",
-        primary_release_year: "release_year",
-        with_genres: " "
+        sort_by: "popularity.desc",
+        primary_release_year: "Все фильмы",
+        with_genres: []
       },
       page: 1,
-      total_pages: 2,
-      genres: []
+      total_pages: ""
     };
   }
-  onChangeGenres = genres => {
-    this.setState({
-      genres
-    });
-  };
-  onClearFilters = () => {
-    this.setState({
-      filters: {
-        sort_by: "vote_average.desc",
-        primary_release_year: "release_year",
-        with_genres: " "
-      },
-      page: 1,
-      total_pages: 2,
-      genres: []
-    });
-  };
-  onChangePage = (page, total_pages) => {
-    console.log("onChangePage APP(new page)");
-    this.setState({
-      page,
-      total_pages
-    });
-  };
 
   onChangeFilters = event => {
-    console.log("onChangeFilters APP (new filters)");
-    const name = event.target.name;
     const value = event.target.value;
     const newFilters = {
       ...this.state.filters,
@@ -55,13 +29,23 @@ export default class App extends React.Component {
   };
   getTotalPages = total_pages => {
     this.setState({
+      page,
       total_pages
     });
   };
+  onClearFilters = () => {
+    this.setState({
+      filters: {
+        sort_by: "popularity.desc",
+        primary_release_year: "Все фильмы",
+        with_genres: []
+      },
+      page: 1,
+      total_pages: ""
+    });
+  };
   render() {
-    console.log("render APP", this.props);
-    const { filters, total_pages, genres, page } = this.state;
-
+    const { filters, page, total_pages } = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -70,14 +54,12 @@ export default class App extends React.Component {
               <div className="card-body">
                 <h3>Фильтры:</h3>
                 <Filters
-                  filters={filters}
-                  onChangeFilters={this.onChangeFilters}
-                  onChangePage={this.onChangePage}
                   page={page}
                   total_pages={total_pages}
+                  filters={filters}
                   onClearFilters={this.onClearFilters}
-                  genres={genres}
-                  onChangeGenres={this.onChangeGenres}
+                  onChangeFilters={this.onChangeFilters}
+                  onChangePagination={this.onChangePagination}
                 />
               </div>
             </div>
@@ -85,11 +67,8 @@ export default class App extends React.Component {
           <div className="col-8">
             <MoviesList
               filters={filters}
-              page={this.state.page}
-              onChangePage={this.onChangePage}
-              total_pages={total_pages}
-              getTotalPages={this.getTotalPages}
-              onChangeGenres={this.onChangeGenres}
+              page={page}
+              onChangePagination={this.onChangePagination}
             />
           </div>
         </div>

@@ -1,12 +1,12 @@
 import React from "react";
-import UiSelect from "../UIComponents/UISelect";
+import UISelect from "../UIComponents/UISelect";
 
 export default class PrimaryReLeaseYear extends React.Component {
   static defaultProps = {
     options: [
       {
         label: "Все фильмы",
-        value: ""
+        value: "0"
       },
       {
         value: "2018",
@@ -23,25 +23,23 @@ export default class PrimaryReLeaseYear extends React.Component {
     ]
   };
   render() {
-    const { options, onChangeFilters, primary_release_year } = this.props;
+    const { primary_release_year, onChangeFilters, options } = this.props;
+    console.log("PrimaryReleaseYear render");
     return (
-      <div className="form-group">
-        <select
-          className="form-control"
-          id="primary_release_year"
-          name="primary_release_year"
-          value={primary_release_year}
-          onChange={onChangeFilters}
-        >
-          {options.map(item => {
-            return (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            );
-          })}
-        </select>
-      </div>
+      <UISelect
+        id="primary_release_year"
+        name="primary_release_year"
+        value={primary_release_year}
+        onChange={onChangeFilters}
+        htmlFor={options[0].value}
+        labelText="Год релиза:"
+      >
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </UISelect>
     );
   }
 }
