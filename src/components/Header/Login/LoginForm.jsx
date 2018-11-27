@@ -90,6 +90,7 @@ export default class LoginForm extends React.Component {
 
       .then(data => {
         this.props.updateSessionId(data.session_id);
+        this.props.updateAccountId(data.account_id);
         return fetchApi(
           `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
             data.session_id

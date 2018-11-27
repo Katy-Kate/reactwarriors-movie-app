@@ -66,12 +66,19 @@ export default class MovieList extends React.Component {
 
   render() {
     const { movies } = this.state;
+    const { toggleModal, session_id, user } = this.props;
     return (
       <div className="row">
         {movies.map(movie => {
           return (
             <div key={movie.id} className="col-6 mb-4">
-              <MovieItem item={movie} />
+              <MovieItem
+                media_id={movie.id}
+                item={movie}
+                session_id={session_id}
+                toggleModal={toggleModal}
+                user={user}
+              />
             </div>
           );
         })}
