@@ -1,6 +1,6 @@
 import React from "react";
 import Filters from "./Filters/Filters";
-import MoviesList from "./Movies/MoviesList";
+import MoviesContainer from "./Movies/MoviesContainer";
 import Header from "./Header/Header";
 import { fetchApi, API_URL, API_KEY_3 } from "../api/api";
 import Cookies from "universal-cookie";
@@ -100,7 +100,6 @@ export default class App extends React.Component {
           updateSessionId={this.updateSessionId}
           showModal={showModal}
           toggleModal={this.toggleModal}
-          
         />
         <div className="container">
           <div className="row mt-4">
@@ -120,7 +119,7 @@ export default class App extends React.Component {
               </div>
             </div>
             <div className="col-8">
-              <MoviesList
+              <MoviesContainer
                 filters={filters}
                 page={page}
                 onChangePagination={this.onChangePagination}
