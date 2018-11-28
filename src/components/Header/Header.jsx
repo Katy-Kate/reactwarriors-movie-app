@@ -20,7 +20,7 @@ export default class Header extends React.Component {
               <span className="nav-link">Home</span>
             </li>
           </ul>
-          {user !== null ? (
+          {user ? (
             <User user={user} />
           ) : (
             <Login
@@ -28,7 +28,6 @@ export default class Header extends React.Component {
               updateSessionId={updateSessionId}
               showModal={showModal}
               toggleModal={toggleModal}
-              
             />
           )}
         </div>

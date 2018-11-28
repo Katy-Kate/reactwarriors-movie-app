@@ -11,7 +11,7 @@ export default class Favorite extends React.Component {
     const { onClickIcon, icon } = this.props;
 
     return (
-      <span className="heart-icon" onClick={onClickIcon("heart")}>
+      <span className="heart-icon" onClick={onClickIcon("favorite")}>
         <FontAwesomeIcon icon={icon ? faHeart : heartRegular} />
       </span>
     );

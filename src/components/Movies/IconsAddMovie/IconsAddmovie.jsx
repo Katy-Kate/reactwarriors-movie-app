@@ -7,15 +7,15 @@ export default class IconsAddmovie extends React.Component {
   constructor() {
     super();
     this.state = {
-      bookmark: false,
-      heart: false
+      watchlist: false,
+      favorite: false
     };
   }
-  onChangeFavoritList = () => {
+  toogleMovieByName = name => {
     fetchApi(
       `${API_URL}/account/${
         this.props.user.id
-      }/favorite?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
+      }/${name}?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
       {
         method: "POST",
         headers: {
@@ -24,64 +24,31 @@ export default class IconsAddmovie extends React.Component {
         body: JSON.stringify({
           media_type: "movie",
           media_id: this.props.item.id,
-          favorite: !this.state.heart
+          [name]: !this.state[name]
         })
       }
     ).then(response => {
       console.log(response);
     });
   };
-  onChangeWatchList = () => {
-    fetchApi(
-      `${API_URL}/account/${
-        this.props.user.id
-      }/watchlist?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json;charset=utf-8"
-        },
-        body: JSON.stringify({
-          media_type: "movie",
-          media_id: this.props.item.id,
-          watchlist: !this.state.bookmark
-        })
-      }
-    ).then(response => {
-      console.log(response);
-    });
-  };
+
   onClickIcon = name => () => {
-    if (this.onCheckLoginUser()) {
-      console.log(name);
-      this.setState({
-        [name]: !this.state[name]
-      });
-      if (name === "heart") {
-        this.onChangeFavoritList();
-      } else if (name === "bookmark") {
-        this.onChangeWatchList();
-      }
-    } else {
-      this.props.toggleModal();
+    if (this.props.session_id) {
+      this.setState(
+        {
+          [name]: !this.state[name]
+        },
+        this.toogleMovieByName(name)
+      );
     }
   };
-  onCheckLoginUser = () => {
-    const session_id = this.props.session_id;
-    if (session_id !== null) {
-      console.log("checkLoginUser true");
-      return true;
-    } else {
-      console.log("onCheckLoginUser false");
-      return false;
-    }
-  };
+
   render() {
-    const { bookmark, heart } = this.state;
+    const { watchlist, favorite } = this.state;
     return (
       <div>
-        <Favorite onClickIcon={this.onClickIcon} icon={heart} />
-        <Bookmark onClickIcon={this.onClickIcon} icon={bookmark} />
+        <Favorite onClickIcon={this.onClickIcon} icon={favorite} />
+        <Bookmark onClickIcon={this.onClickIcon} icon={watchlist} />
       </div>
     );
   }
