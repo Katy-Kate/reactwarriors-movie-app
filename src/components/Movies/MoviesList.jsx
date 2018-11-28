@@ -19,7 +19,7 @@ const MoviesList = ({ movies, toggleModal, session_id, user }) => (
     })}
   </div>
 );
-MoviesList.defaultprops = {
+MoviesList.defaultProps = {
   movies: []
 };
 MoviesList.propTypes = {
