@@ -100,7 +100,7 @@ export default class App extends React.Component {
           updateSessionId={this.updateSessionId}
           showModal={showModal}
           toggleModal={this.toggleModal}
-          updateAccountId={this.updateAccountId}
+          
         />
         <div className="container">
           <div className="row mt-4">

@@ -26,14 +26,14 @@ export default class LoginForm extends React.Component {
 
   handleBlur = () => {
     const errors = this.validateFields();
-    // if (Object.keys(errors).length > 0) {
-    this.setState(prevState => ({
-      errors: {
-        //...prevState.errors,
-        ...errors
-      }
-    }));
-    // }
+    if (Object.keys(errors).length > 0) {
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          ...errors
+        }
+      }));
+    }
   };
 
   validateFields = input => {
@@ -90,7 +90,6 @@ export default class LoginForm extends React.Component {
 
       .then(data => {
         this.props.updateSessionId(data.session_id);
-        this.props.updateAccountId(data.account_id);
         return fetchApi(
           `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
             data.session_id
@@ -98,15 +97,17 @@ export default class LoginForm extends React.Component {
         );
       })
       .then(user => {
-        this.props.updateUser(user);
+        this.setState(
+          {
+            submitting: false
+          },
+          () => {
+            this.props.updateUser(user);
+          }
+        );
+
         console.log("session", user);
       })
-      // .then(data => {
-      //   console.log("session", data.target);
-      //   this.setState({
-      //     submitting: false
-      //   });
-      // })
       .catch(error => {
         console.log("error", error);
         this.setState({
@@ -162,7 +163,7 @@ export default class LoginForm extends React.Component {
           <Field
             id="password"
             labelText="Password"
-            type="text"
+            type="password"
             placeholderText="Enter password"
             name="password"
             value={password}
@@ -173,7 +174,7 @@ export default class LoginForm extends React.Component {
           <Field
             id="repeatPassword"
             labelText="Repeat password"
-            type="text"
+            type="password"
             placeholderText="Enter repeatPassword"
             name="repeatPassword"
             value={repeatPassword}

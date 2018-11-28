@@ -4,13 +4,7 @@ import LoginForm from "./LoginForm";
 
 export default class Login extends React.Component {
   render() {
-    const {
-      updateSessionId,
-      updateUser,
-      toggleModal,
-      showModal,
-      updateAccountId
-    } = this.props;
+    const { updateSessionId, updateUser, toggleModal, showModal } = this.props;
     return (
       <div>
         <button className="btn btn-success" type="button" onClick={toggleModal}>
@@ -21,7 +15,6 @@ export default class Login extends React.Component {
             <LoginForm
               updateUser={updateUser}
               updateSessionId={updateSessionId}
-              updateAccountId={updateAccountId}
             />
           </ModalBody>
         </Modal>

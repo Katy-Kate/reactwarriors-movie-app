@@ -9,8 +9,7 @@ export default class Header extends React.Component {
       updateUser,
       updateSessionId,
       showModal,
-      toggleModal,
-      updateAccountId
+      toggleModal
     } = this.props;
 
     return (
@@ -29,7 +28,7 @@ export default class Header extends React.Component {
               updateSessionId={updateSessionId}
               showModal={showModal}
               toggleModal={toggleModal}
-              updateAccountId={updateAccountId}
+              
             />
           )}
         </div>
