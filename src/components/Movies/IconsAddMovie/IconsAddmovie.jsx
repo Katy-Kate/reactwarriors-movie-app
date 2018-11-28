@@ -2,8 +2,9 @@ import React from "react";
 import Favorite from "./Favorite";
 import Bookmark from "./Bookmark";
 import { fetchApi, API_KEY_3, API_URL } from "../../../api/api";
+import { AppContext } from "../../App";
 
-export default class IconsAddmovie extends React.Component {
+class IconsAddmovie extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -86,3 +87,17 @@ export default class IconsAddmovie extends React.Component {
     );
   }
 }
+
+export default props => {
+  return (
+    <AppContext.Consumer>
+      {context => (
+        <IconsAddmovie
+          user={context.user}
+          session_id={context.session_id}
+          {...props}
+        />
+      )}
+    </AppContext.Consumer>
+  );
+};

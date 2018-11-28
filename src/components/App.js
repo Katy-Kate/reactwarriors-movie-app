@@ -1,11 +1,12 @@
 import React from "react";
 import Filters from "./Filters/Filters";
-import MoviesContainer from "./Movies/MoviesContainer";
+import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import { fetchApi, API_URL, API_KEY_3 } from "../api/api";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
+export const AppContext = React.createContext();
 
 export default class App extends React.Component {
   constructor() {
@@ -93,44 +94,49 @@ export default class App extends React.Component {
       showModal
     } = this.state;
     return (
-      <div>
-        <Header
-          user={user}
-          updateUser={this.updateUser}
-          updateSessionId={this.updateSessionId}
-          showModal={showModal}
-          toggleModal={this.toggleModal}
-        />
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-4">
-              <div className="card" style={{ width: "100%" }}>
-                <div className="card-body">
-                  <h3>Фильтры:</h3>
-                  <Filters
-                    page={page}
-                    total_pages={total_pages}
-                    filters={filters}
-                    onClearFilters={this.onClearFilters}
-                    onChangeFilters={this.onChangeFilters}
-                    onChangePagination={this.onChangePagination}
-                  />
+      <AppContext.Provider
+        value={{
+          user: user,
+          updateSessionId: this.updateSessionId,
+          updateUser: this.updateUser,
+          session_id: session_id
+        }}
+      >
+        <div>
+          <Header
+            user={user}
+            showModal={showModal}
+            toggleModal={this.toggleModal}
+          />
+          <div className="container">
+            <div className="row mt-4">
+              <div className="col-4">
+                <div className="card" style={{ width: "100%" }}>
+                  <div className="card-body">
+                    <h3>Фильтры:</h3>
+                    <Filters
+                      page={page}
+                      total_pages={total_pages}
+                      filters={filters}
+                      onClearFilters={this.onClearFilters}
+                      onChangeFilters={this.onChangeFilters}
+                      onChangePagination={this.onChangePagination}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-8">
-              <MoviesContainer
-                filters={filters}
-                page={page}
-                onChangePagination={this.onChangePagination}
-                session_id={session_id}
-                toggleModal={this.toggleModal}
-                user={this.state.user}
-              />
+              <div className="col-8">
+                <MoviesList
+                  filters={filters}
+                  page={page}
+                  onChangePagination={this.onChangePagination}
+                  toggleModal={this.toggleModal}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </AppContext.Provider>
     );
   }
 }

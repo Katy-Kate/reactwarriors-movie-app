@@ -1,8 +1,9 @@
 import React from "react";
 import MovieItem from "./MovieItem";
 import PropTypes from "prop-types";
+import MoviesHOC from "./MoviesHOC";
 
-const MoviesList = ({ movies, toggleModal, session_id, user }) => (
+const MoviesList = ({ movies, toggleModal }) => (
   <div className="row">
     {movies.map(movie => {
       return (
@@ -10,9 +11,7 @@ const MoviesList = ({ movies, toggleModal, session_id, user }) => (
           <MovieItem
             media_id={movie.id}
             item={movie}
-            session_id={session_id}
             toggleModal={toggleModal}
-            user={user}
           />
         </div>
       );
@@ -25,4 +24,5 @@ MoviesList.defaultProps = {
 MoviesList.propTypes = {
   movies: PropTypes.array.isRequired
 };
-export default MoviesList;
+
+export default MoviesHOC(MoviesList);

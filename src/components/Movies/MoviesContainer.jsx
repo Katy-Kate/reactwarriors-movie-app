@@ -65,14 +65,7 @@ export default class MoviesContainer extends React.Component {
 
   render() {
     const { movies } = this.state;
-    const { toggleModal, session_id, user } = this.props;
-    return (
-      <MoviesList
-        movies={movies}
-        toggleModal={toggleModal}
-        session_id={session_id}
-        user={user}
-      />
-    );
+    const { toggleModal } = this.props;
+    return <MoviesList movies={movies} toggleModal={toggleModal} />;
   }
 }
