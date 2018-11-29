@@ -51,9 +51,18 @@ export default class App extends React.Component {
       path: "/",
       maxAge: 2592000
     });
+
     this.setState({
       session_id
     });
+  };
+  logOut = () => {
+    this.setState({
+      session_id: null,
+      user: null
+    });
+    cookies.remove("session_id");
+    this.toggleModal();
   };
   onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
     this.setState({
@@ -107,6 +116,8 @@ export default class App extends React.Component {
             user={user}
             showModal={showModal}
             toggleModal={this.toggleModal}
+            session_id={this.state.session_id}
+            logOut={this.logOut}
           />
           <div className="container">
             <div className="row mt-4">

@@ -107,7 +107,7 @@ class LoginForm extends React.Component {
           }
         );
 
-        console.log("session", user);
+        console.log("user", user);
       })
       .catch(error => {
         console.log("error", error);

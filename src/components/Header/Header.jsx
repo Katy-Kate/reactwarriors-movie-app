@@ -1,10 +1,10 @@
 import React from "react";
 import Login from "./Login/Login";
-import User from "./User";
+import UserMenu from "./UserMenu";
 
 export default class Header extends React.Component {
   render() {
-    const { user, showModal, toggleModal } = this.props;
+    const { user, showModal, toggleModal, session_id, logOut } = this.props;
 
     return (
       <nav className="navbar navbar-dark bg-primary">
@@ -15,7 +15,7 @@ export default class Header extends React.Component {
             </li>
           </ul>
           {user ? (
-            <User />
+            <UserMenu session_id={session_id} logOut={logOut} />
           ) : (
             <Login showModal={showModal} toggleModal={toggleModal} />
           )}

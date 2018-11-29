@@ -22,3 +22,6 @@ button[type="submit"] {
 input.invalid {
   border-color: red;
 }
+.user-menu{
+      list-style: none;
+}
