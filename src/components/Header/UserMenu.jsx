@@ -1,6 +1,5 @@
 import React from "react";
 import { AppContext } from "../App";
-import { fetchApi, API_KEY_3, API_URL } from "../../api/api";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -22,19 +21,7 @@ class UserMenu extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-  onClickLogOut = () => {
-    fetchApi(`${API_URL}/authentication/session?api_key=${API_KEY_3}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        session_id: this.props.session_id
-      })
-    }).then(() => {
-      this.props.logOut();
-    });
-  };
+
   render() {
     const { user, logOut } = this.props;
     return (
@@ -50,7 +37,7 @@ class UserMenu extends React.Component {
           />
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem onClick={this.onClickLogOut}>Выход</DropdownItem>
+          <DropdownItem onClick={logOut}>Выход</DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );

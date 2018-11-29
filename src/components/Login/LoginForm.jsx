@@ -1,7 +1,7 @@
 import React from "react";
 import Field from "./Field";
-import { API_URL, API_KEY_3, fetchApi } from "../../../api/api";
-import AppContextHOC from "../../HOC/AppContextHOC";
+import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
+import AppContextHOC from "../HOC/AppContextHOC";
 
 class LoginForm extends React.Component {
   state = {
@@ -104,6 +104,7 @@ class LoginForm extends React.Component {
           },
           () => {
             this.props.updateUser(user);
+            this.props.toggleModal();
           }
         );
 

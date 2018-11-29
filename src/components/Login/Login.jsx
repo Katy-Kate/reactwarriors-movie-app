@@ -7,12 +7,12 @@ export default class Login extends React.Component {
     const { toggleModal, showModal } = this.props;
     return (
       <div>
-        <button className="btn btn-success" type="button" onClick={toggleModal}>
+        {/* <button className="btn btn-success" type="button" onClick={toggleModal}>
           Login
-        </button>
-        <Modal isOpen={showModal} toggle={this.toggleModal}>
+        </button> */}
+        <Modal isOpen={showModal} toggle={toggleModal}>
           <ModalBody>
-            <LoginForm />
+            <LoginForm toggleModal={toggleModal} />
           </ModalBody>
         </Modal>
       </div>

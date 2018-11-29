@@ -2,6 +2,7 @@ import React from "react";
 import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
+import Login from "./Login/Login";
 import { fetchApi, API_URL, API_KEY_3 } from "../api/api";
 import Cookies from "universal-cookie";
 
@@ -57,12 +58,21 @@ export default class App extends React.Component {
     });
   };
   logOut = () => {
-    this.setState({
-      session_id: null,
-      user: null
+    fetchApi(`${API_URL}/authentication/session?api_key=${API_KEY_3}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        session_id: this.props.session_id
+      })
+    }).then(() => {
+      this.setState({
+        session_id: null,
+        user: null
+      });
+      cookies.remove("session_id");
     });
-    cookies.remove("session_id");
-    this.toggleModal();
   };
   onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
     this.setState({
@@ -147,6 +157,10 @@ export default class App extends React.Component {
             </div>
           </div>
         </div>
+        <Login
+          toggleModal={this.toggleModal}
+          showModal={this.state.showModal}
+        />
       </AppContext.Provider>
     );
   }
