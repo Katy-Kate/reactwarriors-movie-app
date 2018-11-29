@@ -16,7 +16,7 @@ export default class MovieItem extends React.Component {
           <h6 className="card-title">{item.title}</h6>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
           <IconsAddmovie
-            onClickFavorite={this.onClickFavorite}
+            onClickIcon={this.onClickIcon}
             toggleModal={toggleModal}
             media_id={media_id}
             item={item}
