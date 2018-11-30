@@ -22,12 +22,12 @@ export default class App extends React.Component {
       total_pages: "",
       user: null,
       session_id: null,
-      showModal: false
+      showLoginModal: false
     };
   }
   toggleModal = () => {
     this.setState(prevState => ({
-      showModal: !prevState.showModal
+      showLoginModal: !prevState.showLoginModal
     }));
   };
   updateUser = user => {
@@ -64,7 +64,7 @@ export default class App extends React.Component {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        session_id: this.props.session_id
+        session_id: this.state.session_id
       })
     }).then(() => {
       this.setState({
@@ -110,7 +110,7 @@ export default class App extends React.Component {
       total_pages,
       user,
       session_id,
-      showModal
+      showLoginModal
     } = this.state;
     return (
       <AppContext.Provider
@@ -124,7 +124,7 @@ export default class App extends React.Component {
         <div>
           <Header
             user={user}
-            showModal={showModal}
+            showLoginModal={showLoginModal}
             toggleModal={this.toggleModal}
             session_id={this.state.session_id}
             logOut={this.logOut}
@@ -161,7 +161,7 @@ export default class App extends React.Component {
         </div>
         <Login
           toggleModal={this.toggleModal}
-          showModal={this.state.showModal}
+          showLoginModal={this.state.showLoginModal}
         />
       </AppContext.Provider>
     );

@@ -4,13 +4,13 @@ import LoginForm from "./LoginForm";
 
 export default class Login extends React.Component {
   render() {
-    const { toggleModal, showModal } = this.props;
+    const { toggleModal, showLoginModal } = this.props;
     return (
       <div>
         {/* <button className="btn btn-success" type="button" onClick={toggleModal}>
           Login
         </button> */}
-        <Modal isOpen={showModal} toggle={toggleModal}>
+        <Modal isOpen={showLoginModal} toggle={toggleModal}>
           <ModalBody>
             <LoginForm toggleModal={toggleModal} />
           </ModalBody>
