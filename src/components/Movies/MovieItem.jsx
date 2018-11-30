@@ -1,10 +1,10 @@
 import React from "react";
-//import IconsAddmovie from "./IconsAddMovie/IconsAddmovie";
-import IconsContainer from "../Movies/IconsAddMovie/IconsContainer";
+import Favorite from "./Favorite";
+import Watchlist from "./Watchlist";
 
 export default class MovieItem extends React.Component {
   render() {
-    const { item, toggleModal, media_id, session_id, user } = this.props;
+    const { item, session_id, user, media_id, toggleModal } = this.props;
     return (
       <div className="card" style={{ width: "100%" }}>
         <div className="card-img--wrap">
@@ -18,18 +18,22 @@ export default class MovieItem extends React.Component {
         <div className="card-body">
           <h6 className="card-title">{item.title}</h6>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
-          {/* <IconsAddmovie
-            toggleModal={toggleModal}
-            media_id={media_id}
-            item={item}
-          /> */}
-          <IconsContainer
-            toggleModal={toggleModal}
-            media_id={media_id}
-            item={item}
-            session_id={session_id}
-            user={user}
-          />
+          <div className="d-flex justify-content-between mt-3">
+            <Watchlist
+              toggleModal={toggleModal}
+              media_id={media_id}
+              item={item}
+              session_id={session_id}
+              user={user}
+            />
+            <Favorite
+              toggleModal={toggleModal}
+              media_id={media_id}
+              item={item}
+              session_id={session_id}
+              user={user}
+            />
+          </div>
         </div>
       </div>
     );

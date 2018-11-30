@@ -25,7 +25,54 @@ class LoginForm extends React.Component {
     }));
   };
 
-  handleBlur = () => {
+  handleBlur = input => {
+    console.log("input", input.target.id);
+    const inputName = input.target.id;
+
+    if (this.state[inputName] === "") {
+      this.setState({ errors: { [inputName]: "Not empty" } });
+      return false;
+    } else {
+      if (inputName === "username" && this.state[inputName].length <= 4) {
+        this.setState({
+          errors: { username: "Must be more then 4 charecters" }
+        });
+        return false;
+      } else if (
+        inputName === "password" &&
+        this.state[inputName].length <= 4
+      ) {
+        this.setState({
+          errors: { password: "Must be more then 4 charecters" }
+        });
+        return false;
+      } else if (
+        inputName === "repeatPassword" &&
+        this.state.repeatPassword !== this.state.password
+      ) {
+        this.setState({
+          errors: { repeatPassword: "Password must be the same" }
+        });
+        return false;
+      }
+    }
+  };
+
+  validateFields = () => {
+    const errors = {};
+    if (this.state.username <= 4) {
+      errors.username = "Must be more then 4 charecters";
+    }
+    if (this.state.password <= 5) {
+      errors.password = "Must be more then 5 charecters";
+    }
+    if (this.state.repeatPassword !== this.state.password) {
+      errors.repeatPassword = "Password must be the same";
+    }
+
+    return errors;
+  };
+  onSubmit = () => {
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
       this.setState(prevState => ({
@@ -35,23 +82,7 @@ class LoginForm extends React.Component {
         }
       }));
     }
-  };
 
-  validateFields = input => {
-    const errors = {};
-    if (this.state.username === "") {
-      errors.username = "Not empty";
-    }
-    if (this.state.password === "") {
-      errors.password = "Not empty";
-    }
-    if (this.state.repeatPassword !== this.state.password) {
-      errors.repeatPassword = "Password must be the same";
-    }
-
-    return errors;
-  };
-  onSubmit = () => {
     this.setState({
       submitting: true
     });
@@ -129,7 +160,6 @@ class LoginForm extends React.Component {
           <h1 className="h3 mb-3 font-weight-normal text-center">
             Авторизация
           </h1>
-
           <Field
             id="username"
             labelText="Username"

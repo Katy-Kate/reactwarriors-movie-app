@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 
-export default Component =>
+export default (Component, onIconAdd, onIconRemove) =>
   class IconseHOC extends React.Component {
     constructor() {
       super();
@@ -10,8 +10,6 @@ export default Component =>
       };
     }
     onClickIcon = iconName => () => {
-      console.log("this.state.icon", this.state.icon);
-      console.log("iconName", iconName);
       if (this.props.session_id) {
         this.setState(
           {
@@ -20,7 +18,6 @@ export default Component =>
           this.toogleMovieByName(iconName)
         );
       }
-      console.log("this.state.icon", this.state.icon);
     };
     toogleMovieByName = iconName => {
       CallApi.post(`/account/${this.props.user.id}/${iconName}`, {
@@ -30,26 +27,9 @@ export default Component =>
           media_id: this.props.item.id,
           [iconName]: !this.state.icon
         }
-      })
-
-        // fetchApi(
-        //   `${API_URL}/account/${
-        //     this.props.user.id
-        //   }/${iconName}?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
-        //   {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-type": "application/json;charset=utf-8"
-        //     },
-        //     body: JSON.stringify({
-        //       media_type: "movie",
-        //       media_id: this.props.item.id,
-        //       [iconName]: !this.state.icon
-        //     })
-        //   })
-        .then(response => {
-          console.log(response);
-        });
+      }).then(response => {
+        console.log(response);
+      });
     };
 
     render() {
