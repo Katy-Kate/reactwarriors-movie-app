@@ -35,3 +35,7 @@ input.invalid {
 .user-menu {
   list-style: none;
 }
+
+.loader {
+  height: 100vh;
+}
