@@ -3,7 +3,7 @@ import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import Login from "./Login/Login";
-import { fetchApi, API_URL, API_KEY_3 } from "../api/api";
+import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -58,14 +58,8 @@ export default class App extends React.Component {
     });
   };
   logOut = () => {
-    fetchApi(`${API_URL}/authentication/session?api_key=${API_KEY_3}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        session_id: this.state.session_id
-      })
+    CallApi.delete("/authentication/session", {
+      params: { session_id: this.state.session_id }
     }).then(() => {
       this.setState({
         session_id: null,
@@ -95,12 +89,12 @@ export default class App extends React.Component {
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
     if (session_id) {
-      fetchApi(
-        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      ).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
-      });
+      CallApi.get("/account", { params: { session_id: session_id } }).then(
+        user => {
+          this.updateUser(user);
+          this.updateSessionId(session_id);
+        }
+      );
     }
   };
   render() {

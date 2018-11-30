@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchApi, API_KEY_3, API_URL } from "../../api/api";
+import CallApi from "../../api/api";
 
 export default Component =>
   class IconseHOC extends React.Component {
@@ -23,24 +23,33 @@ export default Component =>
       console.log("this.state.icon", this.state.icon);
     };
     toogleMovieByName = iconName => {
-      fetchApi(
-        `${API_URL}/account/${
-          this.props.user.id
-        }/${iconName}?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json;charset=utf-8"
-          },
-          body: JSON.stringify({
-            media_type: "movie",
-            media_id: this.props.item.id,
-            [iconName]: !this.state.icon
-          })
+      CallApi.post(`/account/${this.props.user.id}/${iconName}`, {
+        params: { session_id: this.props.session_id },
+        body: {
+          media_type: "movie",
+          media_id: this.props.item.id,
+          [iconName]: !this.state.icon
         }
-      ).then(response => {
-        console.log(response);
-      });
+      })
+
+        // fetchApi(
+        //   `${API_URL}/account/${
+        //     this.props.user.id
+        //   }/${iconName}?api_key=${API_KEY_3}&session_id=${this.props.session_id}`,
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-type": "application/json;charset=utf-8"
+        //     },
+        //     body: JSON.stringify({
+        //       media_type: "movie",
+        //       media_id: this.props.item.id,
+        //       [iconName]: !this.state.icon
+        //     })
+        //   })
+        .then(response => {
+          console.log(response);
+        });
     };
 
     render() {
