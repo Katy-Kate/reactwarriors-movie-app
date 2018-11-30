@@ -133,7 +133,7 @@ export default class App extends React.Component {
             <div className="row mt-4">
               <div className="col-4">
                 <div className="card" style={{ width: "100%" }}>
-                  <div className="card-body">
+                  <div className="card-body filters">
                     <h3>Фильтры:</h3>
                     <Filters
                       page={page}
@@ -152,6 +152,8 @@ export default class App extends React.Component {
                   page={page}
                   onChangePagination={this.onChangePagination}
                   toggleModal={this.toggleModal}
+                  user={user}
+                  session_id={session_id}
                 />
               </div>
             </div>

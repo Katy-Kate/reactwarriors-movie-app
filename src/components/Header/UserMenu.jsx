@@ -1,5 +1,5 @@
 import React from "react";
-import { AppContext } from "../App";
+import AppContextHOC from "../HOC/AppContextHOC";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -44,22 +44,4 @@ class UserMenu extends React.Component {
   }
 }
 
-const UserContainer = props => {
-  return (
-    <AppContext.Consumer>
-      {context => {
-        return (
-          <div>
-            <UserMenu
-              user={context.user}
-              updateSessionId={context.updateSessionId}
-              {...props}
-            />
-          </div>
-        );
-      }}
-    </AppContext.Consumer>
-  );
-};
-UserContainer.displayName = "UserContainer";
-export default UserContainer;
+export default AppContextHOC(UserMenu);

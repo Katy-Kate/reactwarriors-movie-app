@@ -3,10 +3,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
-
+import IconseHOC from "../../HOC/IconsHOC";
 library.add(faHeart, heartRegular);
 
-export default class Favorite extends React.Component {
+class Favorite extends React.Component {
   render() {
     const { onClickIcon, icon } = this.props;
 
@@ -17,3 +17,4 @@ export default class Favorite extends React.Component {
     );
   }
 }
+export default IconseHOC(Favorite);

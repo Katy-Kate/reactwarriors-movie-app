@@ -65,7 +65,6 @@ export default Component =>
 
     render() {
       const { movies } = this.state;
-      const { toggleModal } = this.props;
-      return <Component movies={movies} toggleModal={toggleModal} />;
+      return <Component {...this.props} movies={movies} />;
     }
   };
