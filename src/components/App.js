@@ -22,7 +22,9 @@ export default class App extends React.Component {
       total_pages: "",
       user: null,
       session_id: null,
-      showLoginModal: false
+      showLoginModal: false,
+      moviesFav: [],
+      moviesWatch: []
     };
   }
   toggleModal = () => {
@@ -88,7 +90,6 @@ export default class App extends React.Component {
 
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
-    // this.setState({ isLoading: true });
     if (session_id) {
       CallApi.get("/account", { params: { session_id: session_id } }).then(
         user => {
@@ -96,8 +97,17 @@ export default class App extends React.Component {
           this.updateSessionId(session_id);
         }
       );
-      // .then(this.setState({ isLoading: false }));
     }
+  };
+
+  getFavMovies = () => {
+    console.log("getFavMovie");
+    CallApi.get(
+      `/account/${this.state.user.account_id}/favorite/movies`
+    ).then();
+  };
+  getWatchMovies = () => {
+    console.log("getWatchMovie");
   };
   render() {
     const {
@@ -106,8 +116,7 @@ export default class App extends React.Component {
       total_pages,
       user,
       session_id,
-      showLoginModal,
-      isLoading
+      showLoginModal
     } = this.state;
 
     return (
@@ -116,7 +125,9 @@ export default class App extends React.Component {
           user: user,
           updateSessionId: this.updateSessionId,
           updateUser: this.updateUser,
-          session_id: session_id
+          session_id: session_id,
+          favIcon: [],
+          watchIcon: []
         }}
       >
         <div>

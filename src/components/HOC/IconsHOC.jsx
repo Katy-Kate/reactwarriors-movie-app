@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 
-export default (Component, onIconAdd, onIconRemove) =>
+export default Component =>
   class IconseHOC extends React.Component {
     constructor() {
       super();
@@ -27,16 +27,11 @@ export default (Component, onIconAdd, onIconRemove) =>
           media_id: this.props.item.id,
           [iconName]: !this.state.icon
         }
-      }).then(response => {
-        console.log(response);
       });
     };
-
     render() {
       return (
-        <div className="d-flex justify-content-right">
         <Component onClickIcon={this.onClickIcon} icon={this.state.icon} />
-        </div>
       );
     }
   };
