@@ -102,9 +102,11 @@ export default class App extends React.Component {
 
   getFavMovies = () => {
     console.log("getFavMovie");
-    CallApi.get(
-      `/account/${this.state.user.account_id}/favorite/movies`
-    ).then();
+    CallApi.get(`/account/${this.state.user.account_id}/favorite/movies`).then(
+      data => {
+        console.log(data);
+      }
+    );
   };
   getWatchMovies = () => {
     console.log("getWatchMovie");
