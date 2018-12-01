@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 const Field = props => {
   const {
@@ -18,7 +19,7 @@ const Field = props => {
       <input
         id={id}
         type={type}
-        className="form-control"
+        className={classNames("form-control", { invalid: errors })}
         placeholder={placeholderText}
         value={value}
         onChange={onChange}

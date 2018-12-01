@@ -10,7 +10,6 @@ const cookies = new Cookies();
 export default class App extends React.Component {
   constructor() {
     super();
-
     this.state = {
       filters: {
         sort_by: "popularity.desc",
@@ -20,9 +19,15 @@ export default class App extends React.Component {
       page: 1,
       total_pages: "",
       user: null,
-      session_id: null
+      session_id: null,
+      showModal: false
     };
   }
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal
+    }));
+  };
   updateUser = user => {
     this.setState({
       user
@@ -73,17 +78,27 @@ export default class App extends React.Component {
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
         this.updateUser(user);
+        this.updateSessionId(session_id);
       });
     }
   };
   render() {
-    const { filters, page, total_pages, user } = this.state;
+    const {
+      filters,
+      page,
+      total_pages,
+      user,
+      session_id,
+      showModal
+    } = this.state;
     return (
       <div>
         <Header
           user={user}
           updateUser={this.updateUser}
           updateSessionId={this.updateSessionId}
+          showModal={showModal}
+          toggleModal={this.toggleModal}
         />
         <div className="container">
           <div className="row mt-4">
@@ -107,6 +122,9 @@ export default class App extends React.Component {
                 filters={filters}
                 page={page}
                 onChangePagination={this.onChangePagination}
+                session_id={session_id}
+                toggleModal={this.toggleModal}
+                user={this.state.user}
               />
             </div>
           </div>
