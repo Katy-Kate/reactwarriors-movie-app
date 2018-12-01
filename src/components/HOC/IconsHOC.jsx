@@ -35,7 +35,7 @@ export default (Component, onIconAdd, onIconRemove) =>
     render() {
       return (
         <div className="d-flex justify-content-right">
-          <Component onClickIcon={this.onClickIcon} icon={this.state.icon} />
+        <Component onClickIcon={this.onClickIcon} icon={this.state.icon} />
         </div>
       );
     }
