@@ -87,7 +87,6 @@ export default class App extends React.Component {
       total_pages: ""
     });
   };
-
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
     if (session_id) {
