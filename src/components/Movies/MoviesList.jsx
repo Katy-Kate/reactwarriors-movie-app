@@ -9,7 +9,6 @@ const MoviesList = ({ movies, toggleModal, session_id, user }) => (
       return (
         <div key={movie.id} className="col-6 mb-4">
           <MovieItem
-            media_id={movie.id}
             item={movie}
             toggleModal={toggleModal}
             session_id={session_id}

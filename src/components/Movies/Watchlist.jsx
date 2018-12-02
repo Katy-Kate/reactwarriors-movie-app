@@ -8,11 +8,11 @@ library.add(faBookmark, bookmarkRegular);
 
 class Watchlist extends React.Component {
   render() {
-    const { onClickIcon, icon } = this.props;
+    const { onClickIcon, isAdd } = this.props;
     return (
       <FontAwesomeIcon
-        icon={icon ? faBookmark : bookmarkRegular}
-        onClick={onClickIcon("watchlist")}
+        icon={isAdd ? faBookmark : bookmarkRegular}
+        onClick={onClickIcon}
       />
     );
   }

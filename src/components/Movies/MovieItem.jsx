@@ -4,7 +4,7 @@ import Watchlist from "./Watchlist";
 
 export default class MovieItem extends React.Component {
   render() {
-    const { item, session_id, user, media_id, toggleModal } = this.props;
+    const { item, session_id, user, toggleModal } = this.props;
     return (
       <div className="card" style={{ width: "100%" }}>
         <div className="card-img--wrap">
@@ -21,17 +21,17 @@ export default class MovieItem extends React.Component {
           <div className="d-flex justify-content-between mt-3">
             <Watchlist
               toggleModal={toggleModal}
-              media_id={media_id}
               item={item}
               session_id={session_id}
               user={user}
+              name="watchlist"
             />
             <Favorite
               toggleModal={toggleModal}
-              media_id={media_id}
               item={item}
               session_id={session_id}
               user={user}
+              name="favorite"
             />
           </div>
         </div>

@@ -2,36 +2,42 @@ import React from "react";
 import CallApi from "../../api/api";
 
 export default Component =>
-  class IconseHOC extends React.Component {
+  class IconsHOC extends React.Component {
     constructor() {
       super();
       this.state = {
-        icon: false
+        isAdd: false
       };
     }
-    onClickIcon = iconName => () => {
+    onClickIcon = () => {
       if (this.props.session_id) {
         this.setState(
           {
-            icon: !this.state.icon
+            isAdd: !this.state.isAdd
           },
-          this.toogleMovieByName(iconName)
+          () => {
+            CallApi.post(`/account/${this.props.user.id}/${this.props.name}`, {
+              params: { session_id: this.props.session_id },
+              body: {
+                media_type: "movie",
+                media_id: this.props.item.id,
+                [this.props.name]: this.state.isAdd
+              }
+            });
+          }
         );
+      } else {
+        this.props.toggleModal();
       }
     };
-    toogleMovieByName = iconName => {
-      CallApi.post(`/account/${this.props.user.id}/${iconName}`, {
-        params: { session_id: this.props.session_id },
-        body: {
-          media_type: "movie",
-          media_id: this.props.item.id,
-          [iconName]: !this.state.icon
-        }
-      });
-    };
+
     render() {
       return (
-        <Component onClickIcon={this.onClickIcon} icon={this.state.icon} />
+        <Component
+          {...this.props}
+          onClickIcon={this.onClickIcon}
+          isAdd={this.state.isAdd}
+        />
       );
     }
   };
