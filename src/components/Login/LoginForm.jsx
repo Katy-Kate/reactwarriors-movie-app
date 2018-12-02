@@ -1,8 +1,9 @@
 import React from "react";
 import Field from "./Field";
-import { API_URL, API_KEY_3, fetchApi } from "../../../api/api";
+import CallApi from "../../api/api";
+import AppContextHOC from "../HOC/AppContextHOC";
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
     username: "",
     password: "",
@@ -24,7 +25,54 @@ export default class LoginForm extends React.Component {
     }));
   };
 
-  handleBlur = () => {
+  handleBlur = input => {
+    console.log("input", input.target.id);
+    const inputName = input.target.id;
+
+    if (this.state[inputName] === "") {
+      this.setState({ errors: { [inputName]: "Not empty" } });
+      return false;
+    } else {
+      if (inputName === "username" && this.state[inputName].length <= 4) {
+        this.setState({
+          errors: { username: "Must be more then 4 charecters" }
+        });
+        return false;
+      } else if (
+        inputName === "password" &&
+        this.state[inputName].length <= 4
+      ) {
+        this.setState({
+          errors: { password: "Must be more then 4 charecters" }
+        });
+        return false;
+      } else if (
+        inputName === "repeatPassword" &&
+        this.state.repeatPassword !== this.state.password
+      ) {
+        this.setState({
+          errors: { repeatPassword: "Password must be the same" }
+        });
+        return false;
+      }
+    }
+  };
+
+  validateFields = () => {
+    const errors = {};
+    if (this.state.username <= 4) {
+      errors.username = "Must be more then 4 charecters";
+    }
+    if (this.state.password <= 5) {
+      errors.password = "Must be more then 5 charecters";
+    }
+    if (this.state.repeatPassword !== this.state.password) {
+      errors.repeatPassword = "Password must be the same";
+    }
+
+    return errors;
+  };
+  onSubmit = () => {
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
       this.setState(prevState => ({
@@ -34,67 +82,30 @@ export default class LoginForm extends React.Component {
         }
       }));
     }
-  };
 
-  validateFields = input => {
-    const errors = {};
-    if (this.state.username === "") {
-      errors.username = "Not empty";
-    }
-    if (this.state.password === "") {
-      errors.password = "Not empty";
-    }
-    if (this.state.repeatPassword !== this.state.password) {
-      errors.repeatPassword = "Password must be the same";
-    }
-
-    return errors;
-  };
-  onSubmit = () => {
     this.setState({
       submitting: true
     });
-    fetchApi(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`)
+    CallApi.get("/authentication/token/new")
       .then(data => {
-        return fetchApi(
-          `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
-          {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-              username: this.state.username,
-              password: this.state.password,
-              request_token: data.request_token
-            })
+        return CallApi.post("/authentication/token/validate_with_login", {
+          body: {
+            username: this.state.username,
+            password: this.state.password,
+            request_token: data.request_token
           }
-        );
+        });
       })
       .then(data => {
-        return fetchApi(
-          `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-          {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-              request_token: data.request_token
-            })
-          }
-        );
+        return CallApi.post("/authentication/session/new", {
+          body: { request_token: data.request_token }
+        });
       })
-
       .then(data => {
         this.props.updateSessionId(data.session_id);
-        return fetchApi(
-          `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
-            data.session_id
-          }`
-        );
+        return CallApi.get("/account", {
+          params: { session_id: data.session_id }
+        });
       })
       .then(user => {
         this.setState(
@@ -103,10 +114,11 @@ export default class LoginForm extends React.Component {
           },
           () => {
             this.props.updateUser(user);
+            this.props.toggleModal();
           }
         );
 
-        console.log("session", user);
+        console.log("user", user);
       })
       .catch(error => {
         console.log("error", error);
@@ -148,7 +160,6 @@ export default class LoginForm extends React.Component {
           <h1 className="h3 mb-3 font-weight-normal text-center">
             Авторизация
           </h1>
-
           <Field
             id="username"
             labelText="Username"
@@ -198,3 +209,4 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+export default AppContextHOC(LoginForm);

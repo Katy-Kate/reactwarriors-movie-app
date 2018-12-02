@@ -1,3 +1,4 @@
+import queryString from "query-string";
 export const API_URL = "https://api.themoviedb.org/3";
 export const API_KEY_3 = "505075685f5961155a9bfb5422604ac7";
 export const API_KEY_4 =
@@ -22,3 +23,78 @@ export const fetchApi = (url, options = {}) => {
       });
   });
 };
+
+export default class CallApi {
+  static get(url, option = {}) {
+    const { params } = option;
+    const queryStringParams = {
+      api_key: API_KEY_3,
+      ...params
+    };
+
+    return fetchApi(
+      `${API_URL}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json"
+        }
+      }
+    );
+  }
+  static post(url, option = {}) {
+    const { params = {}, body = {} } = option;
+    const queryStringParams = {
+      api_key: API_KEY_3,
+      ...params
+    };
+
+    return fetchApi(
+      `${API_URL}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          ...body
+        })
+      }
+    );
+  }
+  static delete(url, option = {}) {
+    const { params = {}, body = {} } = option;
+    const queryStringParams = {
+      ...params
+    };
+    return fetchApi(
+      `${API_URL}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          ...body
+        })
+      }
+    );
+  }
+}
+
+// fetchApi(`${API_URL}/authentication/session?api_key=${API_KEY_3}`, {
+//   method: "DELETE",
+//   headers: {
+//     "content-type": "application/json"
+//   },
+//   body: JSON.stringify({
+//     session_id: this.state.session_id
+//   })
+// }).then(() => {
+//   this.setState({
+//     session_id: null,
+//     user: null
+//   });
+//   cookies.remove("session_id");
+// });

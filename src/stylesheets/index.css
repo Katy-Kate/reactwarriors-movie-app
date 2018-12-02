@@ -12,13 +12,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.card-img--wrap {
+  max-height: 60%;
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: auto;
+}
 .invalid-feedback {
   display: block;
 }
 button[type="submit"] {
   margin-top: 30px;
 }
-
+.filters .form-check-label {
+  margin-left: 10px;
+}
 input.invalid {
   border-color: red;
+}
+.user-menu {
+  list-style: none;
+}
+
+.loader {
+  height: 100vh;
 }

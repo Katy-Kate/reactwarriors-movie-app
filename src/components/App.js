@@ -2,10 +2,12 @@ import React from "react";
 import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
-import { fetchApi, API_URL, API_KEY_3 } from "../api/api";
+import Login from "./Login/Login";
+import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
+export const AppContext = React.createContext();
 
 export default class App extends React.Component {
   constructor() {
@@ -20,12 +22,14 @@ export default class App extends React.Component {
       total_pages: "",
       user: null,
       session_id: null,
-      showModal: false
+      showLoginModal: false,
+      moviesFav: [],
+      moviesWatch: []
     };
   }
   toggleModal = () => {
     this.setState(prevState => ({
-      showModal: !prevState.showModal
+      showLoginModal: !prevState.showLoginModal
     }));
   };
   updateUser = user => {
@@ -50,8 +54,20 @@ export default class App extends React.Component {
       path: "/",
       maxAge: 2592000
     });
+
     this.setState({
       session_id
+    });
+  };
+  logOut = () => {
+    CallApi.delete("/authentication/session", {
+      params: { session_id: this.state.session_id }
+    }).then(() => {
+      this.setState({
+        session_id: null,
+        user: null
+      });
+      cookies.remove("session_id");
     });
   };
   onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
@@ -74,13 +90,25 @@ export default class App extends React.Component {
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
     if (session_id) {
-      fetchApi(
-        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      ).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
-      });
+      CallApi.get("/account", { params: { session_id: session_id } }).then(
+        user => {
+          this.updateUser(user);
+          this.updateSessionId(session_id);
+        }
+      );
     }
+  };
+
+  getFavMovies = () => {
+    console.log("getFavMovie");
+    CallApi.get(`/account/${this.state.user.account_id}/favorite/movies`).then(
+      data => {
+        console.log(data);
+      }
+    );
+  };
+  getWatchMovies = () => {
+    console.log("getWatchMovie");
   };
   render() {
     const {
@@ -89,47 +117,63 @@ export default class App extends React.Component {
       total_pages,
       user,
       session_id,
-      showModal
+      showLoginModal
     } = this.state;
+
     return (
-      <div>
-        <Header
-          user={user}
-          updateUser={this.updateUser}
-          updateSessionId={this.updateSessionId}
-          showModal={showModal}
-          toggleModal={this.toggleModal}
-        />
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-4">
-              <div className="card" style={{ width: "100%" }}>
-                <div className="card-body">
-                  <h3>Фильтры:</h3>
-                  <Filters
-                    page={page}
-                    total_pages={total_pages}
-                    filters={filters}
-                    onClearFilters={this.onClearFilters}
-                    onChangeFilters={this.onChangeFilters}
-                    onChangePagination={this.onChangePagination}
-                  />
+      <AppContext.Provider
+        value={{
+          user: user,
+          updateSessionId: this.updateSessionId,
+          updateUser: this.updateUser,
+          session_id: session_id,
+          favIcon: [],
+          watchIcon: []
+        }}
+      >
+        <div>
+          <Header
+            user={user}
+            showLoginModal={showLoginModal}
+            toggleModal={this.toggleModal}
+            session_id={this.state.session_id}
+            logOut={this.logOut}
+          />
+          <div className="container">
+            <div className="row mt-4">
+              <div className="col-4">
+                <div className="card" style={{ width: "100%" }}>
+                  <div className="card-body filters">
+                    <h3>Фильтры:</h3>
+                    <Filters
+                      page={page}
+                      total_pages={total_pages}
+                      filters={filters}
+                      onClearFilters={this.onClearFilters}
+                      onChangeFilters={this.onChangeFilters}
+                      onChangePagination={this.onChangePagination}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-8">
-              <MoviesList
-                filters={filters}
-                page={page}
-                onChangePagination={this.onChangePagination}
-                session_id={session_id}
-                toggleModal={this.toggleModal}
-                user={this.state.user}
-              />
+              <div className="col-8">
+                <MoviesList
+                  filters={filters}
+                  page={page}
+                  onChangePagination={this.onChangePagination}
+                  toggleModal={this.toggleModal}
+                  user={user}
+                  session_id={session_id}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <Login
+          toggleModal={this.toggleModal}
+          showLoginModal={this.state.showLoginModal}
+        />
+      </AppContext.Provider>
     );
   }
 }
