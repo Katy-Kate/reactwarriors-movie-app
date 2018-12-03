@@ -3,8 +3,8 @@ import CallApi from "../../api/api";
 
 export default Component =>
   class IconsHOC extends React.Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
         isAdd: false
       };
@@ -33,17 +33,13 @@ export default Component =>
         this.props.toggleModal();
       }
     };
-    changeIconState = state => {
-      this.setState({
-        isAdd: state
-      });
-      console.log("this.props.isAddedIcon", this.props.isAddedIcon);
-    };
-
     componentDidUpdate = prevProps => {
-      if (this.props.isAddedIcon !== prevProps.isAddedIcon) {
+      if (
+        this.props.isAddedIcon !== prevProps.isAddedIcon ||
+        this.props.isAdd !== this.state.isAdd
+      ) {
         this.setState({
-          isAdd: this.props.isAddedIcon
+          isAdd: this.props.isAdd
         });
       }
     };

@@ -34,7 +34,6 @@ export default Component =>
           });
           this.setState({
             movies: data.results
-            // isLoading: false
           });
         })
         .then(() => {

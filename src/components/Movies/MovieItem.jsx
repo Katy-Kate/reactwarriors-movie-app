@@ -41,7 +41,7 @@ export default class MovieItem extends React.Component {
               item={item}
               session_id={session_id}
               user={user}
-              isAddedIcon={this.findAddedIcon(watchlistMovies)}
+              isAdd={this.findAddedIcon(watchlistMovies)}
               name="watchlist"
               getFavoriteMovies={getFavoriteMovies}
               getWatchlistMovies={getWatchlistMovies}
@@ -51,7 +51,7 @@ export default class MovieItem extends React.Component {
               item={item}
               session_id={session_id}
               user={user}
-              isAddedIcon={this.findAddedIcon(favoriteMovies)}
+              isAdd={this.findAddedIcon(favoriteMovies)}
               name="favorite"
               getFavoriteMovies={getFavoriteMovies}
               getWatchlistMovies={getWatchlistMovies}
