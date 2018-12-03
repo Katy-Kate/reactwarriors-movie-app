@@ -38,10 +38,7 @@ export default Component =>
     };
 
     componentDidUpdate = prevProps => {
-      if (
-        this.props.isAddedIcon !== prevProps.isAddedIcon &&
-        this.props.isAddedIcon === true
-      ) {
+      if (this.props.isAddedIcon !== prevProps.isAddedIcon) {
         this.setState({
           isAdd: this.props.isAddedIcon
         });
