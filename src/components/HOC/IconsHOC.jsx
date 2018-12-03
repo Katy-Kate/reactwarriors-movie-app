@@ -23,6 +23,9 @@ export default Component =>
                 media_id: this.props.item.id,
                 [this.props.name]: this.state.isAdd
               }
+            }).then(() => {
+              this.props.getFavoriteMovies();
+              this.props.getWatchlistMovies();
             });
           }
         );

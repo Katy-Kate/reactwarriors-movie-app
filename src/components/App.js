@@ -193,6 +193,8 @@ export default class App extends React.Component {
                 session_id={session_id}
                 watchlistMovies={watchlistMovies}
                 favoriteMovies={favoriteMovies}
+                getFavoriteMovies={this.getFavoriteMovies}
+                getWatchlistMovies={this.getWatchlistMovies}
               />
             </div>
           </div>

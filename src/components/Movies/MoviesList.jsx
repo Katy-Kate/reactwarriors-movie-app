@@ -9,7 +9,9 @@ const MoviesList = ({
   session_id,
   user,
   watchlistMovies,
-  favoriteMovies
+  favoriteMovies,
+  getFavoriteMovies,
+  getWatchlistMovies
 }) => (
   <div className="row">
     {movies.map(movie => {
@@ -22,6 +24,8 @@ const MoviesList = ({
             user={user}
             watchlistMovies={watchlistMovies}
             favoriteMovies={favoriteMovies}
+            getFavoriteMovies={getFavoriteMovies}
+            getWatchlistMovies={getWatchlistMovies}
           />
         </div>
       );

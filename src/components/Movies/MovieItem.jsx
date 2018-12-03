@@ -4,20 +4,11 @@ import Watchlist from "./Watchlist";
 
 export default class MovieItem extends React.Component {
   findAddedIcon = array => {
-    // array.some(index => {
-    //   return index.id === this.props.item.id;
-    // });
-    // if (array.length === 0) {
-    //   return false;
-    // } else {
-    //   console.log("findAddedIcon");
     for (let i = 0; i < array.length; i++) {
       if (array[i].id === this.props.item.id) {
         return true;
       }
-      // return false;
     }
-    //}
   };
 
   render() {
@@ -27,7 +18,9 @@ export default class MovieItem extends React.Component {
       user,
       toggleModal,
       watchlistMovies,
-      favoriteMovies
+      favoriteMovies,
+      getFavoriteMovies,
+      getWatchlistMovies
     } = this.props;
     return (
       <div className="card" style={{ width: "100%" }}>
@@ -50,6 +43,8 @@ export default class MovieItem extends React.Component {
               user={user}
               isAddedIcon={this.findAddedIcon(watchlistMovies)}
               name="watchlist"
+              getFavoriteMovies={getFavoriteMovies}
+              getWatchlistMovies={getWatchlistMovies}
             />
             <Favorite
               toggleModal={toggleModal}
@@ -58,6 +53,8 @@ export default class MovieItem extends React.Component {
               user={user}
               isAddedIcon={this.findAddedIcon(favoriteMovies)}
               name="favorite"
+              getFavoriteMovies={getFavoriteMovies}
+              getWatchlistMovies={getWatchlistMovies}
             />
           </div>
         </div>
