@@ -62,7 +62,6 @@ export default Component =>
 
     render() {
       const { movies, isLoading } = this.state;
-      console.log("isLoading", isLoading);
       if (isLoading) {
         return <Loader type="balls" color="#007bff" />;
       }

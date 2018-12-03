@@ -120,6 +120,10 @@ class LoginForm extends React.Component {
 
         console.log("user", user);
       })
+      .then(data => {
+        this.props.getFavoriteMovies();
+        this.props.getWatchlistMovies();
+      })
       .catch(error => {
         console.log("error", error);
         this.setState({

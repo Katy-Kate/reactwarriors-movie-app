@@ -6,9 +6,10 @@ import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
 import IconsHOC from "../HOC/IconsHOC";
 library.add(faHeart, heartRegular);
 
-class MovieIcon extends React.Component {
+class Favorite extends React.Component {
   render() {
     const { onClickIcon, isAdd } = this.props;
+
     return (
       <FontAwesomeIcon
         icon={isAdd ? faHeart : heartRegular}
@@ -17,4 +18,4 @@ class MovieIcon extends React.Component {
     );
   }
 }
-export default IconsHOC(MovieIcon);
+export default IconsHOC(Favorite);

@@ -30,7 +30,23 @@ export default Component =>
         this.props.toggleModal();
       }
     };
+    changeIconState = state => {
+      this.setState({
+        isAdd: state
+      });
+      console.log("this.props.isAddedIcon", this.props.isAddedIcon);
+    };
 
+    componentDidUpdate = prevProps => {
+      if (
+        this.props.isAddedIcon !== prevProps.isAddedIcon &&
+        this.props.isAddedIcon === true
+      ) {
+        this.setState({
+          isAdd: this.props.isAddedIcon
+        });
+      }
+    };
     render() {
       return (
         <Component
