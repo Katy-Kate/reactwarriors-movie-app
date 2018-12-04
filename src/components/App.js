@@ -112,7 +112,7 @@ export default class App extends React.Component {
         params: { session_id: this.state.session_id }
       }).then(data => {
         this.setState({
-          favoriteMovies: data.results
+          favoriteMovies: [...data.results]
         });
       });
     } else {
@@ -121,12 +121,11 @@ export default class App extends React.Component {
   };
   getWatchlistMovies = () => {
     if (this.state.user) {
-      console.log("getWatchlistMovies");
       CallApi.get(`/account/${this.state.user.account_id}/watchlist/movies`, {
         params: { session_id: this.state.session_id }
       }).then(data => {
         this.setState({
-          watchlistMovies: data.results
+          watchlistMovies: [...data.results]
         });
       });
     } else {
@@ -153,8 +152,10 @@ export default class App extends React.Component {
           updateSessionId: this.updateSessionId,
           updateUser: this.updateUser,
           session_id: session_id,
-          watchlistMovies: [],
-          favoriteMovies: []
+          watchlistMovies: watchlistMovies,
+          favoriteMovies: favoriteMovies,
+          getFavoriteMovies: this.getFavoriteMovies,
+          getWatchlistMovies: this.getWatchlistMovies
         }}
       >
         <Header
@@ -187,12 +188,6 @@ export default class App extends React.Component {
                 page={page}
                 onChangePagination={this.onChangePagination}
                 toggleModal={this.toggleModal}
-                user={user}
-                session_id={session_id}
-                watchlistMovies={watchlistMovies}
-                favoriteMovies={favoriteMovies}
-                getFavoriteMovies={this.getFavoriteMovies}
-                getWatchlistMovies={this.getWatchlistMovies}
               />
             </div>
           </div>
@@ -201,8 +196,6 @@ export default class App extends React.Component {
         <Login
           toggleModal={this.toggleModal}
           showLoginModal={this.state.showLoginModal}
-          getFavoriteMovies={this.getFavoriteMovies}
-          getWatchlistMovies={this.getWatchlistMovies}
         />
       </AppContext.Provider>
     );

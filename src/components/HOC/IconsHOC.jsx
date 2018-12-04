@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 
-export default Component =>
+export default (Component, type) =>
   class IconsHOC extends React.Component {
     constructor() {
       super();
@@ -9,6 +9,18 @@ export default Component =>
         isAdd: false
       };
     }
+
+    findAddedIcon = () => {
+      const isAddedIcon = this.props[type].some(object => {
+        return object.id === this.props.item.id;
+      });
+      if (this.state.isAdd !== isAddedIcon) {
+        this.setState({
+          isAdd: isAddedIcon
+        });
+      }
+    };
+
     onClickIcon = () => {
       if (this.props.session_id) {
         this.setState(
@@ -33,14 +45,10 @@ export default Component =>
         this.props.toggleModal();
       }
     };
+
     componentDidUpdate = prevProps => {
-      if (
-        this.props.isAdd !== prevProps.isAdd ||
-        this.props.isAdd !== this.state.isAdd
-      ) {
-        this.setState({
-          isAdd: this.props.isAdd
-        });
+      if (prevProps[type] !== this.props[type]) {
+        this.findAddedIcon();
       }
     };
     render() {
