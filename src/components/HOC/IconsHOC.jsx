@@ -23,6 +23,9 @@ export default Component =>
                 media_id: this.props.item.id,
                 [this.props.name]: this.state.isAdd
               }
+            }).then(() => {
+              this.props.getFavoriteMovies();
+              this.props.getWatchlistMovies();
             });
           }
         );
@@ -30,7 +33,16 @@ export default Component =>
         this.props.toggleModal();
       }
     };
-
+    componentDidUpdate = prevProps => {
+      if (
+        this.props.isAdd !== prevProps.isAdd ||
+        this.props.isAdd !== this.state.isAdd
+      ) {
+        this.setState({
+          isAdd: this.props.isAdd
+        });
+      }
+    };
     render() {
       return (
         <Component

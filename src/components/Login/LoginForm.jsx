@@ -5,9 +5,9 @@ import AppContextHOC from "../HOC/AppContextHOC";
 
 class LoginForm extends React.Component {
   state = {
-    username: "",
-    password: "",
-    repeatPassword: "",
+    username: "KateTuralnikova",
+    password: "ekaterina00",
+    repeatPassword: "ekaterina00",
     errors: {},
     submitting: false
   };
@@ -119,6 +119,10 @@ class LoginForm extends React.Component {
         );
 
         console.log("user", user);
+      })
+      .then(data => {
+        this.props.getFavoriteMovies();
+        this.props.getWatchlistMovies();
       })
       .catch(error => {
         console.log("error", error);

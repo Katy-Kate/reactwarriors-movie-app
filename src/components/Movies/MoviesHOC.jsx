@@ -26,18 +26,23 @@ export default Component =>
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      CallApi.get("/discover/movie", { params: queryStringParams }).then(
-        data => {
+      CallApi.get("/discover/movie", { params: queryStringParams })
+        .then(data => {
           this.props.onChangePagination({
             page: data.page,
             total_pages: data.total_pages
           });
           this.setState({
-            movies: data.results,
+            movies: data.results
+          });
+        })
+        .then(() => {
+          this.props.getFavoriteMovies();
+          this.props.getWatchlistMovies();
+          this.setState({
             isLoading: false
           });
-        }
-      );
+        });
     };
 
     componentDidMount() {
@@ -62,7 +67,6 @@ export default Component =>
 
     render() {
       const { movies, isLoading } = this.state;
-      console.log("isLoading", isLoading);
       if (isLoading) {
         return <Loader type="balls" color="#007bff" />;
       }
