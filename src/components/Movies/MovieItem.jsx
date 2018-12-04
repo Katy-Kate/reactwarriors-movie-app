@@ -4,9 +4,11 @@ import Watchlist from "./Watchlist";
 
 export default class MovieItem extends React.Component {
   findAddedIcon = array => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].id === this.props.item.id) {
-        return true;
+    if (array.length > 0) {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].id === this.props.item.id) {
+          return true;
+        }
       }
     }
   };
@@ -41,7 +43,7 @@ export default class MovieItem extends React.Component {
               item={item}
               session_id={session_id}
               user={user}
-              isAdd={this.findAddedIcon(watchlistMovies)}
+              isAdd={this.findAddedIcon(watchlistMovies) ? true : false}
               name="watchlist"
               getFavoriteMovies={getFavoriteMovies}
               getWatchlistMovies={getWatchlistMovies}
@@ -51,7 +53,7 @@ export default class MovieItem extends React.Component {
               item={item}
               session_id={session_id}
               user={user}
-              isAdd={this.findAddedIcon(favoriteMovies)}
+              isAdd={this.findAddedIcon(favoriteMovies) ? true : false}
               name="favorite"
               getFavoriteMovies={getFavoriteMovies}
               getWatchlistMovies={getWatchlistMovies}

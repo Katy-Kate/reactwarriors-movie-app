@@ -106,23 +106,21 @@ export default class App extends React.Component {
   };
 
   getFavoriteMovies = () => {
-    if (this.state.session_id && this.state.user) {
+    if (this.state.user) {
       console.log("getFavoriteMovies");
-      if (this.state.session_id && this.state.user) {
-        CallApi.get(`/account/${this.state.user.account_id}/favorite/movies`, {
-          params: { session_id: this.state.session_id }
-        }).then(data => {
-          this.setState({
-            favoriteMovies: data.results
-          });
+      CallApi.get(`/account/${this.state.user.account_id}/favorite/movies`, {
+        params: { session_id: this.state.session_id }
+      }).then(data => {
+        this.setState({
+          favoriteMovies: data.results
         });
-      } else {
-        console.log("we don't have this.state.session_id && this.state.user");
-      }
+      });
+    } else {
+      console.log("we don't have user");
     }
   };
   getWatchlistMovies = () => {
-    if (this.state.session_id && this.state.user) {
+    if (this.state.user) {
       console.log("getWatchlistMovies");
       CallApi.get(`/account/${this.state.user.account_id}/watchlist/movies`, {
         params: { session_id: this.state.session_id }
@@ -132,7 +130,7 @@ export default class App extends React.Component {
         });
       });
     } else {
-      console.log("we don't have this.state.session_id && this.state.user");
+      console.log("we don't have user");
     }
   };
 
