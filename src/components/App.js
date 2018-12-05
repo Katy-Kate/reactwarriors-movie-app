@@ -1,10 +1,11 @@
 import React from "react";
-import Filters from "./Filters/Filters";
-import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import Login from "./Login/Login";
+import MoviesPage from "./pages/MoviesPage/MoviesPage";
+import MoviePage from "./pages/MoviePage/MoviePage";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 const cookies = new Cookies();
 export const AppContext = React.createContext();
@@ -13,25 +14,13 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      filters: {
-        sort_by: "popularity.desc",
-        primary_release_year: "Все фильмы",
-        with_genres: []
-      },
-      page: 1,
-      total_pages: "",
       user: null,
-      session_id: null,
       showLoginModal: false,
       watchlistMovies: [],
       favoriteMovies: []
     };
   }
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showLoginModal: !prevState.showLoginModal
-    }));
-  };
+
   updateUser = user => {
     this.setState({
       user
@@ -73,23 +62,7 @@ export default class App extends React.Component {
       console.log("logout");
     });
   };
-  onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
-    this.setState({
-      page,
-      total_pages
-    });
-  };
-  onClearFilters = () => {
-    this.setState({
-      filters: {
-        sort_by: "popularity.desc",
-        primary_release_year: "Все фильмы",
-        with_genres: []
-      },
-      page: 1,
-      total_pages: ""
-    });
-  };
+
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -135,9 +108,6 @@ export default class App extends React.Component {
 
   render() {
     const {
-      filters,
-      page,
-      total_pages,
       user,
       session_id,
       showLoginModal,
@@ -146,58 +116,36 @@ export default class App extends React.Component {
     } = this.state;
 
     return (
-      <AppContext.Provider
-        value={{
-          user: user,
-          updateSessionId: this.updateSessionId,
-          updateUser: this.updateUser,
-          session_id: session_id,
-          watchlistMovies: watchlistMovies,
-          favoriteMovies: favoriteMovies,
-          getFavoriteMovies: this.getFavoriteMovies,
-          getWatchlistMovies: this.getWatchlistMovies
-        }}
-      >
-        <Header
-          user={user}
-          showLoginModal={showLoginModal}
-          toggleModal={this.toggleModal}
-          session_id={this.state.session_id}
-          logOut={this.logOut}
-        />
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-4">
-              <div className="card" style={{ width: "100%" }}>
-                <div className="card-body filters">
-                  <h3>Фильтры:</h3>
-                  <Filters
-                    page={page}
-                    total_pages={total_pages}
-                    filters={filters}
-                    onClearFilters={this.onClearFilters}
-                    onChangeFilters={this.onChangeFilters}
-                    onChangePagination={this.onChangePagination}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-8">
-              <MoviesList
-                filters={filters}
-                page={page}
-                onChangePagination={this.onChangePagination}
-                toggleModal={this.toggleModal}
-              />
-            </div>
-          </div>
-        </div>
+      <BrowserRouter>
+        <AppContext.Provider
+          value={{
+            user: user,
+            updateSessionId: this.updateSessionId,
+            updateUser: this.updateUser,
+            session_id: session_id,
+            watchlistMovies: watchlistMovies,
+            favoriteMovies: favoriteMovies,
+            getFavoriteMovies: this.getFavoriteMovies,
+            getWatchlistMovies: this.getWatchlistMovies
+          }}
+        >
+          <Header
+            user={user}
+            showLoginModal={showLoginModal}
+            toggleModal={this.toggleModal}
+            session_id={this.state.session_id}
+            logOut={this.logOut}
+          />
 
-        <Login
-          toggleModal={this.toggleModal}
-          showLoginModal={this.state.showLoginModal}
-        />
-      </AppContext.Provider>
+          <Route exact path="/" component={MoviesPage} />
+          <Route path="/movie/:id" component={MoviePage} />
+
+          <Login
+            toggleModal={this.toggleModal}
+            showLoginModal={this.state.showLoginModal}
+          />
+        </AppContext.Provider>
+      </BrowserRouter>
     );
   }
 }

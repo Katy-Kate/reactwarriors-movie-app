@@ -6,7 +6,7 @@ export default class Header extends React.Component {
     const { user, toggleModal, session_id, logOut } = this.props;
 
     return (
-      <nav className="navbar navbar-dark bg-primary">
+      <nav className="navbar navbar-dark bg-secondary">
         <div className="container">
           <ul className="navbar-nav">
             <li className="nav-item active">

@@ -3,10 +3,11 @@ import CallApi from "../../api/api";
 
 export default (Component, type) =>
   class IconsHOC extends React.Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
-        isAdd: false
+        isAdd: false,
+        access: this.props.access
       };
     }
 
@@ -17,6 +18,11 @@ export default (Component, type) =>
       if (this.state.isAdd !== isAddedIcon) {
         this.setState({
           isAdd: isAddedIcon
+        });
+      }
+      if (this.state.access) {
+        this.setState({
+          access: false
         });
       }
     };
@@ -35,9 +41,6 @@ export default (Component, type) =>
                 media_id: this.props.item.id,
                 [this.props.name]: this.state.isAdd
               }
-            }).then(() => {
-              this.props.getFavoriteMovies();
-              this.props.getWatchlistMovies();
             });
           }
         );
@@ -47,11 +50,12 @@ export default (Component, type) =>
     };
 
     componentDidUpdate = prevProps => {
-      if (prevProps[type] !== this.props[type]) {
+      if (prevProps[type] !== this.props[type] || this.state.access) {
         this.findAddedIcon();
       }
     };
     render() {
+      console.log("this.state.isAdd", this.state.isAdd);
       return (
         <Component
           {...this.props}
