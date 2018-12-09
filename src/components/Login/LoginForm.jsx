@@ -117,13 +117,8 @@ class LoginForm extends React.Component {
             this.props.toggleModal();
           }
         );
+      })
 
-        console.log("user", user);
-      })
-      .then(data => {
-        this.props.getFavoriteMovies();
-        this.props.getWatchlistMovies();
-      })
       .catch(error => {
         console.log("error", error);
         this.setState({

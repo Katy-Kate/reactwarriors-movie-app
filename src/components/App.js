@@ -16,10 +16,15 @@ export default class App extends React.Component {
     this.state = {
       user: null,
       showLoginModal: false,
-      watchlistMovies: [],
-      favoriteMovies: []
+      watchlist: [],
+      favorite: []
     };
   }
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showLoginModal: !prevState.showLoginModal
+    }));
+  };
 
   updateUser = user => {
     this.setState({
@@ -49,6 +54,7 @@ export default class App extends React.Component {
     });
   };
   logOut = () => {
+    cookies.remove("session_id", { path: "/" });
     CallApi.delete("/authentication/session", {
       params: { session_id: this.state.session_id }
     }).then(() => {
@@ -58,7 +64,7 @@ export default class App extends React.Component {
         watchlistMovies: [],
         favoriteMovies: []
       });
-      cookies.remove("session_id");
+
       console.log("logout");
     });
   };
@@ -66,53 +72,46 @@ export default class App extends React.Component {
   componentDidMount = () => {
     const session_id = cookies.get("session_id");
     if (session_id) {
-      CallApi.get("/account", { params: { session_id: session_id } })
+      CallApi.get("/account", {
+        params: { session_id: session_id }
+      })
         .then(user => {
           this.updateUser(user);
           this.updateSessionId(session_id);
         })
         .then(() => {
-          this.getFavoriteMovies();
-          this.getWatchlistMovies();
+          this.getListAddedMovies("favorite");
+          this.getListAddedMovies("watchlist");
         });
     }
   };
 
-  getFavoriteMovies = () => {
-    if (this.state.user) {
-      console.log("getFavoriteMovies");
-      CallApi.get(`/account/${this.state.user.account_id}/favorite/movies`, {
+  getListAddedMovies = type => {
+    if (this.state.user && this.state.session_id) {
+      CallApi.get(`/account/${this.state.user.id}/${type}/movies`, {
         params: { session_id: this.state.session_id }
       }).then(data => {
         this.setState({
-          favoriteMovies: [...data.results]
+          [type]: [...data.results]
         });
       });
     } else {
       console.log("we don't have user");
     }
   };
-  getWatchlistMovies = () => {
-    if (this.state.user) {
-      CallApi.get(`/account/${this.state.user.account_id}/watchlist/movies`, {
-        params: { session_id: this.state.session_id }
-      }).then(data => {
-        this.setState({
-          watchlistMovies: [...data.results]
-        });
-      });
-    } else {
-      console.log("we don't have user");
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.user !== prevState.user && this.state.user) {
+      this.getListAddedMovies("favorite");
+      this.getListAddedMovies("watchlist");
     }
-  };
-
+  }
   render() {
     const {
       user,
       session_id,
       showLoginModal,
-      watchlistMovies,
-      favoriteMovies
+      watchlist,
+      favorite
     } = this.state;
 
     return (
@@ -123,10 +122,9 @@ export default class App extends React.Component {
             updateSessionId: this.updateSessionId,
             updateUser: this.updateUser,
             session_id: session_id,
-            watchlistMovies: watchlistMovies,
-            favoriteMovies: favoriteMovies,
-            getFavoriteMovies: this.getFavoriteMovies,
-            getWatchlistMovies: this.getWatchlistMovies
+            watchlist: watchlist,
+            favorite: favorite,
+            getListAddedMovies: this.getListAddedMovies
           }}
         >
           <Header

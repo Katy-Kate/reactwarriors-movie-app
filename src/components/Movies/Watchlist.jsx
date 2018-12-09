@@ -18,4 +18,4 @@ class Watchlist extends React.Component {
     );
   }
 }
-export default AppContextHOC(IconseHOC(Watchlist, "watchlistMovies"));
+export default AppContextHOC(IconseHOC(Watchlist, "watchlist"));

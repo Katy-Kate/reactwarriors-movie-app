@@ -19,4 +19,4 @@ class Favorite extends React.Component {
     );
   }
 }
-export default AppContextHOC(IconsHOC(Favorite, "favoriteMovies"));
+export default AppContextHOC(IconsHOC(Favorite, "favorite"));

@@ -6,29 +6,26 @@ export default (Component, type) =>
     constructor(props) {
       super(props);
       this.state = {
-        isAdd: false,
-        access: this.props.access
+        isAdd: this.props[type].includes(this.props.item.id)
       };
     }
 
     findAddedIcon = () => {
+      console.log("dddddddddddd", this.props[type]);
       const isAddedIcon = this.props[type].some(object => {
         return object.id === this.props.item.id;
       });
+
+      // const isAddedIcon = this.props[type].includes(this.props.item.id);
       if (this.state.isAdd !== isAddedIcon) {
         this.setState({
           isAdd: isAddedIcon
         });
       }
-      if (this.state.access) {
-        this.setState({
-          access: false
-        });
-      }
     };
 
     onClickIcon = () => {
-      if (this.props.session_id) {
+      if (this.props.user) {
         this.setState(
           {
             isAdd: !this.state.isAdd
@@ -41,6 +38,8 @@ export default (Component, type) =>
                 media_id: this.props.item.id,
                 [this.props.name]: this.state.isAdd
               }
+            }).then(() => {
+              this.props.getListAddedMovies(this.props.name);
             });
           }
         );
@@ -49,8 +48,21 @@ export default (Component, type) =>
       }
     };
 
+    componentDidMount = () => {
+      this.findAddedIcon();
+    };
+
     componentDidUpdate = prevProps => {
-      if (prevProps[type] !== this.props[type] || this.state.access) {
+      console.log(
+        "prevProps[type]",
+        prevProps[type],
+        "this.props[type]",
+        this.props[type]
+      );
+      if (
+        prevProps[type].includes(this.props.item.id) !==
+        this.props[type].includes(this.props.item.id)
+      ) {
         this.findAddedIcon();
       }
     };

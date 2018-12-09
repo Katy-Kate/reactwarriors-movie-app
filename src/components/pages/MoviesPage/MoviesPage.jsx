@@ -13,9 +13,7 @@ class MoviesPage extends React.Component {
         with_genres: []
       },
       page: 1,
-      total_pages: "",
-      watchlistMovies: [],
-      favoriteMovies: []
+      total_pages: ""
     };
   }
 
