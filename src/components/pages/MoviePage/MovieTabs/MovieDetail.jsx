@@ -1,7 +1,7 @@
 import React from "react";
 
 const MovieDetail = ({ movie }) => (
-  <table>
+  <table className="table table-bordered table-striped">
     <tbody>
       <tr>
         <th> Статус</th>

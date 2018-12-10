@@ -7,10 +7,31 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+h1,
+h2 {
+  color: #0775bb;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+button[type="submit"] {
+  margin-top: 30px;
+}
+.loader {
+  height: 100vh;
+}
+svg[data-prefix="fas"] {
+  color: #0775bb;
+}
+/*------ login form------ */
+input.invalid {
+  border-color: red;
+}
+
+/*------ movie cards------ */
+.card {
+  height: 100%;
 }
 .card-img--wrap {
   max-height: 60%;
@@ -23,19 +44,42 @@ code {
 .invalid-feedback {
   display: block;
 }
-button[type="submit"] {
-  margin-top: 30px;
-}
-.filters .form-check-label {
-  margin-left: 10px;
-}
-input.invalid {
-  border-color: red;
-}
+/*------ Hader------ */
+
 .user-menu {
   list-style: none;
 }
+/*------ filters------ */
 
-.loader {
-  height: 100vh;
+.filters .form-check-label {
+  margin-left: 10px;
+}
+
+/*------ movie-page------ */
+.movie-page_icon {
+  padding: 10px 15px;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.character {
+  color: #fff;
+  left: 15px;
+  display: block;
+  position: absolute;
+  top: 0;
+  background: #16181abd;
+  width: calc(100% - 30px);
+  padding: 5px 10px;
+}
+.characters-title {
+  padding: 1rem;
+}
+.character-card:hover .character {
+  background: rgba(6, 118, 186, 0.67);
+  transition: all 0.4s ease;
+}
+.movie-page_icon:hover {
+  background: #0775bb2b;
+  transition: all 0.4s ease;
 }

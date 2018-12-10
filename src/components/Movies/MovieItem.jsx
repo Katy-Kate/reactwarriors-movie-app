@@ -7,7 +7,7 @@ export default class MovieItem extends React.Component {
   render() {
     const { item, toggleModal } = this.props;
     return (
-      <div className="card" style={{ width: "100%" }}>
+      <div className="card " style={{ width: "100%" }}>
         <div className="card-img--wrap">
           <img
             className="card-img-top card-img--height"

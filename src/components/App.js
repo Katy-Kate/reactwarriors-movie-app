@@ -6,6 +6,7 @@ import MoviePage from "./pages/MoviePage/MoviePage";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import _ from "lodash";
 
 const cookies = new Cookies();
 export const AppContext = React.createContext();
@@ -87,6 +88,7 @@ export default class App extends React.Component {
   };
 
   getListAddedMovies = type => {
+    console.log("getListAddedMovies App");
     if (this.state.user && this.state.session_id) {
       CallApi.get(`/account/${this.state.user.id}/${type}/movies`, {
         params: { session_id: this.state.session_id }
@@ -99,8 +101,13 @@ export default class App extends React.Component {
       console.log("we don't have user");
     }
   };
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.user !== prevState.user && this.state.user) {
+  componentDidUpdate=(prevProps, prevState) =>{
+    if (
+      !_.isEqual(this.state.user, prevState.user) &&
+      prevState.user === null
+    ) {
+      console.log("componentDidUpdate App");
+      // this.state.user !== prevState.user && this.state.user) {
       this.getListAddedMovies("favorite");
       this.getListAddedMovies("watchlist");
     }

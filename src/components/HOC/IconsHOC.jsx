@@ -1,28 +1,16 @@
 import React from "react";
 import CallApi from "../../api/api";
+import _ from "lodash";
 
 export default (Component, type) =>
   class IconsHOC extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        isAdd: this.props[type].includes(this.props.item.id)
+        isAdd: this.getAddById({ list: props[type], id: props.item.id })
       };
     }
-
-    findAddedIcon = () => {
-      console.log("dddddddddddd", this.props[type]);
-      const isAddedIcon = this.props[type].some(object => {
-        return object.id === this.props.item.id;
-      });
-
-      // const isAddedIcon = this.props[type].includes(this.props.item.id);
-      if (this.state.isAdd !== isAddedIcon) {
-        this.setState({
-          isAdd: isAddedIcon
-        });
-      }
-    };
+    getAddById = ({ list, id }) => list.some(item => item.id === id);
 
     onClickIcon = () => {
       if (this.props.user) {
@@ -39,7 +27,7 @@ export default (Component, type) =>
                 [this.props.name]: this.state.isAdd
               }
             }).then(() => {
-              this.props.getListAddedMovies(this.props.name);
+              this.props.getListAddedMovies([this.props.name]);
             });
           }
         );
@@ -48,24 +36,21 @@ export default (Component, type) =>
       }
     };
 
-    componentDidMount = () => {
-      this.findAddedIcon();
-    };
-
-    componentDidUpdate = prevProps => {
-      console.log(
-        "prevProps[type]",
-        prevProps[type],
-        "this.props[type]",
-        this.props[type]
-      );
+    componentDidUpdate(prevProps, prevState) {
       if (
-        prevProps[type].includes(this.props.item.id) !==
-        this.props[type].includes(this.props.item.id)
+        !_.isEqual(prevProps[type], this.props[type]) &&
+        this.state.isAdd !==
+          this.getAddById({ list: this.props[type], id: this.props.item.id })
       ) {
-        this.findAddedIcon();
+        this.setState({
+          isAdd: this.getAddById({
+            list: this.props[type],
+            id: this.props.item.id
+          })
+        });
       }
-    };
+    }
+
     render() {
       console.log("this.state.isAdd", this.state.isAdd);
       return (

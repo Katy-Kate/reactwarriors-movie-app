@@ -29,6 +29,7 @@ export default class CallApi {
     const { params } = option;
     const queryStringParams = {
       api_key: API_KEY_3,
+      language: "ru-RU",
       ...params
     };
 
@@ -82,4 +83,3 @@ export default class CallApi {
     );
   }
 }
-

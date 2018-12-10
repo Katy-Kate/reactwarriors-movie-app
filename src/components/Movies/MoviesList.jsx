@@ -5,12 +5,12 @@ import AppContextHOC from "../HOC/AppContextHOC";
 import MoviesHOC from "./MoviesHOC";
 
 const MoviesList = ({ movies, toggleModal }) => (
-  <div className="row">
+  <div className="d-flex flex-wrap-reverse">
     {movies.map(movie => {
       return (
-        <div key={movie.id} className="col-6 mb-4">
-          <MovieItem item={movie} toggleModal={toggleModal} />
-        </div>
+         <div key={movie.id} className="col-6 mb-4 align-content-stretch">
+        <MovieItem item={movie} toggleModal={toggleModal} />
+         </div>
       );
     })}
   </div>
