@@ -1,0 +1,264 @@
+[33mcommit bf3e6a1b733adb46ae62c1760e9b80633a28111b[m[33m ([m[1;36mHEAD -> [m[1;32mrouter[m[33m, [m[1;31morigin/router[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Mon Dec 10 11:39:45 2018 +0200
+
+    add styls and fix icons
+
+[33mcommit c8747b5c5374c191f66bd63e72f6e3bc69cebb49[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sun Dec 9 23:12:54 2018 +0200
+
+    add tabs
+
+[33mcommit 38b42fb05b196a5e01bf7f7951af80a0e3e069b5[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Dec 5 15:52:26 2018 +0200
+
+    add router
+
+[33mcommit e1af21a0d16ba68cabbba77df005d7e7da43ec64[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Katty <turalnikva@rambler.ru>
+Date:   Wed Dec 5 00:54:01 2018 +0200
+
+    Update package.json
+
+[33mcommit 5233535433abefa54340b234e3a70a51a0cf03fd[m
+Author: Katty <turalnikva@rambler.ru>
+Date:   Wed Dec 5 00:49:05 2018 +0200
+
+    Update package.json
+
+[33mcommit e0b2e49a849decb36942748a99aede4ec4317224[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Dec 5 00:29:47 2018 +0200
+
+    build
+
+[33mcommit ad324501bb186d14a010a9499f2a5bad7630cf00[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 23:52:54 2018 +0200
+
+    add dependencies
+
+[33mcommit cefcd699197cfcbf2732205995a09e4cd8fe3924[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 17:14:47 2018 +0200
+
+    fix code
+
+[33mcommit 1218f2805902b0d64d92e07a1120999fb60c0aaf[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 11:19:08 2018 +0200
+
+    change yarn add query-string
+
+[33mcommit b9b7c99f4eef9ea947c13c0729e58f681be764ca[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 10:54:21 2018 +0200
+
+    delete  yarn.lock
+
+[33mcommit 737536f14ed72df05ac7813bef0d2e4c4cb639d4[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 10:52:35 2018 +0200
+
+    add resolutions to json
+
+[33mcommit 0630b6f7ff0cab5c20908638ff48ac3ea94c57ba[m
+Merge: 21d2fff 2056966
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 10:20:53 2018 +0200
+
+    Merge branch 'favorite-movies-and-watchlist-movies'
+
+[33mcommit 2056966a42b06a2f9dfc225205fe3c171dada5ec[m[33m ([m[1;31morigin/favorite-movies-and-watchlist-movies[m[33m, [m[1;32mfavorite-movies-and-watchlist-movies[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Dec 4 10:19:28 2018 +0200
+
+    fix icons
+
+[33mcommit 74ccff5d5ef10dcf981e4661ceedc38ff4c41f12[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Mon Dec 3 14:01:47 2018 +0200
+
+    fix icons when use filters
+
+[33mcommit daf9953afb9f6bf2f72d05aa9cd68fc1a78626e0[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Mon Dec 3 12:15:00 2018 +0200
+
+    add name and password
+
+[33mcommit 3b30860c85d21d73ddbfe306099ea8025f651045[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Mon Dec 3 11:15:53 2018 +0200
+
+    fix icons when logout
+
+[33mcommit 26bdff465291eeab80b4cee06305d8ba16ef4977[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Mon Dec 3 11:07:53 2018 +0200
+
+    change movieIcons state when page loaded
+
+[33mcommit 21d2fff8765dfb695f81b389ab1ef9232cd2ede2[m
+Merge: 68d8932 5c01120
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sun Dec 2 18:16:07 2018 +0200
+
+    Merge branch 'master' of https://github.com/Katy-Kate/reactwarriors-movie-app
+
+[33mcommit 5c011201797b9d087e4fe4c1a0346352e13bb289[m
+Merge: 02dde3d ffdf029
+Author: Katty <turalnikva@rambler.ru>
+Date:   Sun Dec 2 14:48:46 2018 +0200
+
+    Merge pull request #2 from Katy-Kate/CallApi
+    
+    Call api
+
+[33mcommit 68d893290f5b6e53a77ee93dbc6e5ce8d183ee89[m[33m ([m[1;31morigin/Icons[m[33m, [m[1;32mgetMovies[m[33m, [m[1;32mIcons[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sun Dec 2 14:39:44 2018 +0200
+
+    fix icon
+
+[33mcommit ffdf029719960d2063dd5954b1fd7a92d05433ee[m[33m ([m[1;31morigin/CallApi[m[33m)[m
+Merge: 3d2474b 02dde3d
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sat Dec 1 13:13:30 2018 +0200
+
+    newmerge
+
+[33mcommit 02dde3d5e547bd3846c6a780962700d91de95094[m
+Merge: 132dae9 72c2585
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sat Dec 1 13:09:27 2018 +0200
+
+    merge
+
+[33mcommit 3d2474bc2d7b1c9b6dad935877da4c110f241771[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sat Dec 1 13:05:28 2018 +0200
+
+    add getFavMovies
+
+[33mcommit 72c2585dec9b829c6652ccd8c11f836084200af6[m
+Merge: 0da8cdb 17919ac
+Author: Katty <turalnikva@rambler.ru>
+Date:   Sat Dec 1 13:04:18 2018 +0200
+
+    Merge pull request #1 from Katy-Kate/favorite-wachlist-movie
+    
+    Favorite wachlist movie
+
+[33mcommit 43a259ef8760b7f0cee52e274622cd7ea2ee3d74[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sat Dec 1 12:56:14 2018 +0200
+
+    start to create getFavMovies
+
+[33mcommit 9d0dc305f34867167de90814bc8ec2e335e42b28[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Sat Dec 1 12:55:40 2018 +0200
+
+    start to create getFavMovies
+
+[33mcommit ada558d5c2e6d67ec0f6cb8bee7b4e2abe822c37[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Fri Nov 30 20:13:29 2018 +0200
+
+    add preloader
+
+[33mcommit 19fb8cc90d2ce6a707a284520728afaa7e65f216[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Fri Nov 30 18:40:07 2018 +0200
+
+    fix onBlur and IconsHOC
+
+[33mcommit 6dfb84f85cc1d7a4030a83ec597935e7c3a7af21[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Fri Nov 30 14:54:03 2018 +0200
+
+    add CallApi
+
+[33mcommit 4875dd288fc90b13362da200e8f6b1ec3b370fe1[m[33m ([m[1;31morigin/IconsHOC[m[33m, [m[1;32mIconsHOC[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Fri Nov 30 12:45:10 2018 +0200
+
+    fix form
+
+[33mcommit 3462685500eddfb35996f1599af5d9af82412547[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Fri Nov 30 12:09:43 2018 +0200
+
+    Created IconsHOC
+
+[33mcommit 63fdf9cf8c13f007c6920b597d0e87d84253a52d[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Thu Nov 29 18:36:40 2018 +0200
+
+    fixed loginForm
+
+[33mcommit b64cb8dee3a2545c07e740bb352b5ddd6f13fa6e[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Thu Nov 29 15:40:38 2018 +0200
+
+    added logOut
+
+[33mcommit 37de8a1323a625f56f49456abc2c2b62f0e1debf[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Thu Nov 29 12:05:24 2018 +0200
+
+    added user and session_id to IconsAddmovie
+
+[33mcommit 8ed3dc7d10876bf8c745518cff0b3613ce9665bf[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 18:08:04 2018 +0200
+
+    add AppContextHOC
+
+[33mcommit 17919acdf9e3512b2dafe3226bc5e5a8e3eeb9b2[m[33m ([m[1;31morigin/favorite-wachlist-movie[m[33m, [m[1;32mfavorite-wachlist-movie[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 17:18:37 2018 +0200
+
+    fix IconsAddmovie
+
+[33mcommit 501ea0746a7006b8c31b290847bcc914ce4dfb18[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 16:46:11 2018 +0200
+
+    add MoviesHOC
+
+[33mcommit 7ba69b2198d44c7d4fb5edfd7294b8835246c210[m[33m ([m[1;31morigin/paterns[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 11:54:29 2018 +0200
+
+    add pattern container
+
+[33mcommit cb787082c729beddd315fcbf15c7dcfd413d2a43[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 10:55:37 2018 +0200
+
+    add Container pattern for MoviesList
+
+[33mcommit 8a288a952ba1e6288eb0baff55f650bba0e79ecc[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Wed Nov 28 09:39:10 2018 +0200
+
+    fixed loginForm
+
+[33mcommit a07202ff450df5b5932f0f49593ae283261823c3[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Nov 27 21:39:50 2018 +0200
+
+    favorite-wachlist-movie
+
+[33mcommit be04c9a9a8cfafb19ae6a3ffeffba883d5ac7cbd[m[33m ([m[1;31morigin/add-user[m[33m)[m
+Author: Kate Turalnikova <turaslnikova@gmail.com>
+Date:   Tue Nov 27 01:39:18 2018 +0200
+
+    add user
+
+[33mcommit 132dae9c33928684481c9baf24c182afe7c819e5[m
+Author: Kate Turalnikova <turaslnikova@gmail.co
