@@ -52,7 +52,6 @@ export default (Component, type) =>
     }
 
     render() {
-      console.log("this.state.isAdd", this.state.isAdd);
       return (
         <Component
           {...this.props}

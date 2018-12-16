@@ -5,7 +5,7 @@ import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import _ from "lodash";
 
 const cookies = new Cookies();
@@ -62,8 +62,8 @@ export default class App extends React.Component {
       this.setState({
         session_id: null,
         user: null,
-        watchlistMovies: [],
-        favoriteMovies: []
+        watchlist: [],
+        favorite: []
       });
 
       console.log("logout");
@@ -75,20 +75,16 @@ export default class App extends React.Component {
     if (session_id) {
       CallApi.get("/account", {
         params: { session_id: session_id }
-      })
-        .then(user => {
-          this.updateUser(user);
-          this.updateSessionId(session_id);
-        })
-        .then(() => {
-          this.getListAddedMovies("favorite");
-          this.getListAddedMovies("watchlist");
-        });
+      }).then(user => {
+        this.updateUser(user);
+        this.updateSessionId(session_id);
+        this.getListAddedMovies("favorite");
+        this.getListAddedMovies("watchlist");
+      });
     }
   };
 
   getListAddedMovies = type => {
-    console.log("getListAddedMovies App");
     if (this.state.user && this.state.session_id) {
       CallApi.get(`/account/${this.state.user.id}/${type}/movies`, {
         params: { session_id: this.state.session_id }
@@ -101,17 +97,15 @@ export default class App extends React.Component {
       console.log("we don't have user");
     }
   };
-  componentDidUpdate=(prevProps, prevState) =>{
+  componentDidUpdate = (prevProps, prevState) => {
     if (
       !_.isEqual(this.state.user, prevState.user) &&
       prevState.user === null
     ) {
-      console.log("componentDidUpdate App");
-      // this.state.user !== prevState.user && this.state.user) {
       this.getListAddedMovies("favorite");
       this.getListAddedMovies("watchlist");
     }
-  }
+  };
   render() {
     const {
       user,
@@ -131,7 +125,8 @@ export default class App extends React.Component {
             session_id: session_id,
             watchlist: watchlist,
             favorite: favorite,
-            getListAddedMovies: this.getListAddedMovies
+            getListAddedMovies: this.getListAddedMovies,
+            toggleModal: this.toggleModal
           }}
         >
           <Header
@@ -141,10 +136,8 @@ export default class App extends React.Component {
             session_id={this.state.session_id}
             logOut={this.logOut}
           />
-
           <Route exact path="/" component={MoviesPage} />
           <Route path="/movie/:id" component={MoviePage} />
-
           <Login
             toggleModal={this.toggleModal}
             showLoginModal={this.state.showLoginModal}
