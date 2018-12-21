@@ -2,8 +2,9 @@ import React from "react";
 import Favorite from "./Favorite";
 import Watchlist from "./Watchlist";
 import { Link } from "react-router-dom";
+const hoc = c => console.log("hoc----");
 
-export default class MovieItem extends React.Component {
+class MovieItem extends React.Component {
   render() {
     const { item, toggleModal } = this.props;
     return (
@@ -34,3 +35,4 @@ export default class MovieItem extends React.Component {
     );
   }
 }
+export default hoc(MovieItem);
