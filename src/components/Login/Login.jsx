@@ -1,8 +1,14 @@
 import React from "react";
 import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
+import { observer, inject } from "mobx-react";
 
-export default class Login extends React.Component {
+@inject(({ store }) => ({
+  toggleModal: store.toggleModal,
+  showLoginModal: store.showLoginModal
+}))
+@observer
+class Login extends React.Component {
   render() {
     const { toggleModal, showLoginModal } = this.props;
     return (
@@ -16,3 +22,4 @@ export default class Login extends React.Component {
     );
   }
 }
+export default Login;

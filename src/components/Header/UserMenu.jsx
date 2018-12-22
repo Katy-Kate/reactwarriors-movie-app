@@ -6,21 +6,25 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { observer, inject } from "mobx-react";
 
+@inject(({ store }) => ({
+  user: store.user,
+  logOut: store.logOut
+}))
+@observer
 class UserMenu extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
     };
   }
-  toggle() {
+  toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
+  };
 
   render() {
     const { user, logOut } = this.props;

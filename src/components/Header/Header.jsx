@@ -1,10 +1,16 @@
 import React from "react";
 import UserMenu from "./UserMenu";
 import { Link } from "react-router-dom";
+import { observer, inject } from "mobx-react";
 
-export default class Header extends React.Component {
+@inject(({ store }) => ({
+  user: store.user,
+  toggleModal: store.toggleModal
+}))
+@observer
+class Header extends React.Component {
   render() {
-    const { user, toggleModal, session_id, logOut } = this.props;
+    const { user, toggleModal } = this.props;
 
     return (
       <nav className="navbar navbar-dark bg-secondary">
@@ -17,7 +23,7 @@ export default class Header extends React.Component {
             </li>
           </ul>
           {user ? (
-            <UserMenu session_id={session_id} logOut={logOut} />
+            <UserMenu />
           ) : (
             <button
               className="btn btn-success"
@@ -32,3 +38,4 @@ export default class Header extends React.Component {
     );
   }
 }
+export default Header;
