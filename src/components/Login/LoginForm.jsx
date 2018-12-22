@@ -10,8 +10,6 @@ import { inject, observer } from "mobx-react";
   submitting: store.loginValues.submitting,
   onLogin: store.onLogin,
   errors: store.errors
-  // onChange: store.onChange,
-  // handleBlur: store.handleBlur
 }))
 @observer
 class LoginForm extends React.Component {
@@ -22,7 +20,6 @@ class LoginForm extends React.Component {
       repeatPassword,
       errors,
       submitting,
-
       onLogin
     } = this.props;
     return (

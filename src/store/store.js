@@ -98,7 +98,8 @@ class Store {
   handleBlur = event => {
     const name = event.target.name;
     const errors = this.validateFields();
-    console.log(errors);
+    console.log(errors.username);
+    console.log(name);
     this.errors[name] = errors[name];
   };
 
