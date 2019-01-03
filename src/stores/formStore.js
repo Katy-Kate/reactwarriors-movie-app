@@ -1,13 +1,12 @@
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
-import { action, observable } from "mobx";
+import { action, observable, configure } from "mobx";
+import { userStore } from "./userStore";
+configure({ enforceActions: "always" });
 
 const cookies = new Cookies();
 
 class Store {
-  @observable
-  user = null;
-
   @observable
   loginValues = {
     username: "KateTuralnikova",
@@ -16,16 +15,18 @@ class Store {
   };
 
   @observable
-  errors = {};
+  errors = {
+    base: null
+  };
 
   @observable
-  showLoginModal = false;
+  baseError = null;
 
   @observable
   submitting = false;
 
   @observable
-  session_id = null;
+  showLoginModal = false;
 
   validateFields = () => {
     const errors = {};
@@ -39,59 +40,6 @@ class Store {
       errors.repeatPassword = "Password must be the same";
     }
     return errors;
-  };
-
-  toggleModal = () => {
-    this.showLoginModal = !this.showLoginModal;
-  };
-
-  onSubmit = () => {
-    this.submitting = true;
-    CallApi.get("/authentication/token/new")
-      .then(data => {
-        return CallApi.post("/authentication/token/validate_with_login", {
-          body: {
-            username: this.loginValues.username,
-            password: this.loginValues.password,
-            request_token: data.request_token
-          }
-        });
-      })
-      .then(data => {
-        return CallApi.post("/authentication/session/new", {
-          body: { request_token: data.request_token }
-        });
-      })
-      .then(data => {
-        this.updateSessionId(data.session_id);
-        return CallApi.get("/account", {
-          params: { session_id: data.session_id }
-        });
-      })
-      .then(user => {
-        this.submitting = false;
-        this.updateUser(user);
-        this.toggleModal();
-      })
-      .catch(error => {
-        console.log("error", error);
-        this.submitting = false;
-        this.errors = {
-          base: error.status_message
-        };
-      });
-  };
-
-  @action
-  updateUser = user => {
-    this.user = user;
-  };
-  updateSessionId = session_id => {
-    cookies.set("session_id", session_id, {
-      path: "/",
-      maxAge: 2592000
-    });
-    this.session_id = session_id;
   };
 
   @action
@@ -114,24 +62,72 @@ class Store {
     event.preventDefault();
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
-      this.errors = errors;
+      this.updateErrors(errors);
+      //this.errors = errors;
     } else {
+      this.onChangeBaseError();
       this.onSubmit();
     }
   };
 
   @action
-  logOut = () => {
-    cookies.remove("session_id", { path: "/" });
-    CallApi.delete("/authentication/session", {
-      params: { session_id: this.session_id }
-    }).then(() => {
-      this.session_id = null;
-      this.user = null;
-      // this.watchlist = [];
-      // this.favorite = [];
-    });
+  updateErrors = (errors = {}) => {
+    for (let key in errors) {
+      this.errors[key] = errors[key];
+    }
+  };
+
+  @action
+  onChangeBaseError = (error: {}) => {
+    this.errors.base = error;
+  };
+  @action
+  toggleModal = () => {
+    this.showLoginModal = !this.showLoginModal;
+  };
+
+  @action
+  onChangeSubmiting = value => {
+    this.submitting = value;
+  };
+
+  onSubmit = () => {
+    this.onChangeSubmiting(true);
+    let session_id = null;
+    let baseError = null;
+    CallApi.get("/authentication/token/new")
+      .then(data => {
+        return CallApi.post("/authentication/token/validate_with_login", {
+          body: {
+            username: this.loginValues.username,
+            password: this.loginValues.password,
+            request_token: data.request_token
+          }
+        });
+      })
+      .then(data => {
+        return CallApi.post("/authentication/session/new", {
+          body: { request_token: data.request_token }
+        });
+      })
+      .then(data => {
+        session_id = data.session_id;
+        return CallApi.get("/account", {
+          params: { session_id: data.session_id }
+        });
+      })
+      .then(user => {
+        this.onChangeSubmiting(false);
+        userStore.updateAuth({ session_id, user });
+        this.toggleModal();
+      })
+      .catch(error => {
+        console.log("error", error);
+        this.onChangeSubmiting(false);
+        baseError = error.status_message;
+        this.onChangeBaseError(baseError);
+        // this.onChangeBaseError(error.status_message);
+      });
   };
 }
-
-export default Store;
+export const formStore = new Store();

@@ -8,9 +8,8 @@ import {
 } from "reactstrap";
 import { observer, inject } from "mobx-react";
 
-@inject(({ store }) => ({
-  user: store.user,
-  logOut: store.logOut
+@inject(({ userStore }) => ({
+  userStore
 }))
 @observer
 class UserMenu extends React.Component {
@@ -27,7 +26,6 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    const { user, logOut } = this.props;
     return (
       <UncontrolledDropdown nav inNavbar className="user-menu">
         <DropdownToggle nav caret>
@@ -36,12 +34,14 @@ class UserMenu extends React.Component {
             className="rounded-circle"
             alt="avatar"
             src={`https://secure.gravatar.com/avatar/${
-              user.avatar.gravatar.hash
+              this.props.userStore.user.avatar.gravatar.hash
             }.jpg?s=64"`}
           />
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem onClick={logOut}>Выход</DropdownItem>
+          <DropdownItem onClick={this.props.userStore.logOut}>
+            Выход
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );

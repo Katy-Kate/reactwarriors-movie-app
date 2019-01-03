@@ -3,15 +3,13 @@ import UserMenu from "./UserMenu";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 
-@inject(({ store }) => ({
-  user: store.user,
-  toggleModal: store.toggleModal
+@inject(({ formStore, userStore }) => ({
+  userStore,
+  formStore
 }))
 @observer
 class Header extends React.Component {
   render() {
-    const { user, toggleModal } = this.props;
-
     return (
       <nav className="navbar navbar-dark bg-secondary">
         <div className="container">
@@ -22,13 +20,13 @@ class Header extends React.Component {
               </Link>
             </li>
           </ul>
-          {user ? (
+          {this.props.userStore.isAuth ? (
             <UserMenu />
           ) : (
             <button
               className="btn btn-success"
               type="button"
-              onClick={toggleModal}
+              onClick={this.props.formStore.toggleModal}
             >
               Login
             </button>

@@ -3,25 +3,23 @@ import Field from "./Field";
 
 import { inject, observer } from "mobx-react";
 
-@inject(({ store }) => ({
-  username: store.loginValues.username,
-  password: store.loginValues.password,
-  repeatPassword: store.loginValues.repeatPassword,
-  submitting: store.loginValues.submitting,
-  onLogin: store.onLogin,
-  errors: store.errors
+@inject(({ formStore }) => ({
+  formStore
 }))
 @observer
 class LoginForm extends React.Component {
   render() {
     const {
-      username,
-      password,
-      repeatPassword,
+      //username:loginValues={username}
+      //  password:loginValues.password,
+      //  repeatPassword: loginValues.repeatPassword,
+      loginValues,
       errors,
       submitting,
-      onLogin
-    } = this.props;
+      onLogin,
+      base
+    } = this.props.formStore;
+
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -34,7 +32,7 @@ class LoginForm extends React.Component {
             type="text"
             placeholderText="Enter username"
             name="username"
-            value={username}
+            value={loginValues.username}
             errors={errors.username}
           />
           <Field
@@ -43,7 +41,7 @@ class LoginForm extends React.Component {
             type="password"
             placeholderText="Enter password"
             name="password"
-            value={password}
+            value={loginValues.password}
             errors={errors.password}
           />
           <Field
@@ -52,7 +50,7 @@ class LoginForm extends React.Component {
             type="password"
             placeholderText="Enter repeatPassword"
             name="repeatPassword"
-            value={repeatPassword}
+            value={loginValues.repeatPassword}
             errors={errors.repeatPassword}
           />
           <button

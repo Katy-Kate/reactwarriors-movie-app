@@ -3,9 +3,9 @@ import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
 import { observer, inject } from "mobx-react";
 
-@inject(({ store }) => ({
-  toggleModal: store.toggleModal,
-  showLoginModal: store.showLoginModal
+@inject(({ formStore }) => ({
+  toggleModal: formStore.toggleModal,
+  showLoginModal: formStore.showLoginModal
 }))
 @observer
 class Login extends React.Component {

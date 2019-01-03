@@ -3,9 +3,9 @@ import classNames from "classnames";
 
 import { inject, observer } from "mobx-react";
 
-@inject(({ store }) => ({
-  onChange: store.onChange,
-  handleBlur: store.handleBlur
+@inject(({ formStore }) => ({
+  onChange: formStore.onChange,
+  handleBlur: formStore.handleBlur
 }))
 @observer
 class Field extends React.Component {

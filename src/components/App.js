@@ -11,12 +11,9 @@ import { observer, inject } from "mobx-react";
 export const AppContext = React.createContext();
 const cookies = new Cookies();
 
-@inject(({ store }) => ({
-  session_id: store.session_id,
-  user: store.user,
-  updateSessionId: store.updateSessionId,
-  toggleModal: store.toggleModal,
-  updateUser: store.updateUser
+@inject(({ formStore, userStore }) => ({
+  formStore: formStore,
+  userStore: userStore
 }))
 @observer
 class App extends React.Component {
@@ -47,8 +44,8 @@ class App extends React.Component {
       CallApi.get("/account", {
         params: { session_id: session_id }
       }).then(user => {
-        this.props.updateUser(user);
-        this.props.updateSessionId(session_id);
+        this.props.userStore.updateAuth({ user });
+
         this.getListAddedMovies("favorite");
         this.getListAddedMovies("watchlist");
       });
@@ -57,8 +54,8 @@ class App extends React.Component {
 
   getListAddedMovies = type => {
     if (this.props.user && this.props.session_id) {
-      CallApi.get(`/account/${this.props.user.id}/${type}/movies`, {
-        params: { session_id: this.props.session_id }
+      CallApi.get(`/account/${this.props.userStore.user.id}/${type}/movies`, {
+        params: { session_id: this.props.userStore.session_id }
       }).then(data => {
         this.setState({
           [type]: [...data.results]
@@ -71,25 +68,14 @@ class App extends React.Component {
 
   render() {
     const { watchlist, favorite } = this.state;
-    const {
-      user,
-      session_id,
-      updateSessionId,
-      updateUser,
-      toggleModal
-    } = this.props;
+
     return (
       <BrowserRouter>
         <AppContext.Provider
           value={{
-            user: user,
-            updateSessionId: updateSessionId,
-            updateUser: updateUser,
-            session_id: session_id,
             watchlist: watchlist,
             favorite: favorite,
-            getListAddedMovies: this.getListAddedMovies,
-            toggleModal: toggleModal
+            getListAddedMovies: this.getListAddedMovies
           }}
         >
           <Header />
