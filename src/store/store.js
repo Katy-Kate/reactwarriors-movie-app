@@ -29,10 +29,10 @@ class Store {
 
   validateFields = () => {
     const errors = {};
-    if (this.loginValues.username <= 4) {
+    if (this.loginValues.username.length <= 4) {
       errors.username = "Must be more then 4 charecters";
     }
-    if (this.loginValues.password <= 5) {
+    if (this.loginValues.password.length <= 5) {
       errors.password = "Must be more then 5 charecters";
     }
     if (this.loginValues.repeatPassword !== this.loginValues.password) {
