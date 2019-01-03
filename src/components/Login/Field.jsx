@@ -21,6 +21,7 @@ class Field extends React.Component {
       errors,
       handleBlur
     } = this.props;
+
     return (
       <div className="form-group">
         <label htmlFor={id}>{labelText}</label>
