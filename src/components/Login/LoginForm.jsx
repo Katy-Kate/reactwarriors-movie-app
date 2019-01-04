@@ -9,16 +9,7 @@ import { inject, observer } from "mobx-react";
 @observer
 class LoginForm extends React.Component {
   render() {
-    const {
-      //username:loginValues={username}
-      //  password:loginValues.password,
-      //  repeatPassword: loginValues.repeatPassword,
-      loginValues,
-      errors,
-      submitting,
-      onLogin,
-      base
-    } = this.props.formStore;
+    const { loginValues, errors, submitting, onLogin } = this.props.formStore;
 
     return (
       <div className="form-login-container">

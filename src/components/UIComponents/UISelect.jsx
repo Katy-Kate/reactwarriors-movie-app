@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { observer } from "mobx-react";
 
-export default class UISelect extends React.Component {
+@observer
+class UISelect extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired
@@ -12,7 +14,7 @@ export default class UISelect extends React.Component {
     console.log("UISelect render");
     return (
       <div className="form-group">
-        <label htmlFor={id}>{labelText}</label>;
+        <label htmlFor={id}>{labelText}</label>
         <select
           id={id}
           className="form-control"
@@ -26,3 +28,4 @@ export default class UISelect extends React.Component {
     );
   }
 }
+export default UISelect;

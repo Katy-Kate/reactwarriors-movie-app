@@ -4,7 +4,6 @@ import { action, observable, configure } from "mobx";
 import { userStore } from "./userStore";
 configure({ enforceActions: "always" });
 
-const cookies = new Cookies();
 
 class Store {
   @observable

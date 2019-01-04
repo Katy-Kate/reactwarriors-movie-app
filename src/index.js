@@ -6,14 +6,14 @@ import "./stylesheets/index.css";
 import * as serviceWorker from "./serviceWorker";
 import { formStore } from "./stores/formStore";
 import { userStore } from "./stores/userStore";
-import { moviesStore } from "./stores/moviesStore";
+import { moviesPageStore } from "./stores/moviesPageStore";
 import { Provider } from "mobx-react";
 
 ReactDOM.render(
   <Provider
     formStore={formStore}
     userStore={userStore}
-    moviesStore={moviesStore}
+    moviesPageStore={moviesPageStore}
   >
     <App />
   </Provider>,

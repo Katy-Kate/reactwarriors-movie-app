@@ -2,8 +2,13 @@ import React from "react";
 import CallApi from "../../api/api";
 import _ from "lodash";
 import Loader from "../Loader";
+import { inject, observer } from "mobx-react";
 
 export default Component =>
+  @inject(({ moviesPageStore }) => ({
+    moviesPageStore
+  }))
+  @observer
   class MoviesHOC extends React.Component {
     constructor() {
       super();
@@ -20,6 +25,7 @@ export default Component =>
         page: page,
         primary_release_year: primary_release_year
       };
+
       this.setState({
         isLoading: true
       });
@@ -28,7 +34,7 @@ export default Component =>
       }
       CallApi.get("/discover/movie", { params: queryStringParams }).then(
         data => {
-          this.props.onChangePagination({
+          this.props.moviesPageStore.onChangePagination({
             page: data.page,
             total_pages: data.total_pages
           });
@@ -41,22 +47,27 @@ export default Component =>
     };
 
     componentDidMount() {
-      this.getMovies(this.props.filters, this.props.page);
+      this.getMovies(
+        this.props.moviesPageStore.filters,
+        this.props.moviesPageStore.page
+      );
     }
     componentDidUpdate(prevProps) {
       if (
-        !_.isEqual(this.props.filters, prevProps.filters)
-        // this.props.filters !== prevProps.filters
-        // this.props.filters.sort_by !== prevProps.filters.sort_by ||
-        // this.props.filters.primary_release_year !==
-        //   prevProps.filters.primary_release_year
+        !_.isEqual(
+          this.props.moviesPageStore.filters,
+          prevProps.moviesPageStore.filters
+        )
       ) {
-        this.props.onChangePagination({ page: 1 });
-        this.getMovies(this.props.filters, 1);
+        this.props.moviesPageStore.onChangePagination({ page: 1 });
+        this.getMovies(this.props.moviesPageStore.filters, 1);
       }
 
       if (this.props.page !== prevProps.page) {
-        this.getMovies(this.props.filters, this.props.page);
+        this.getMovies(
+          this.props.moviesPageStore.filters,
+          this.props.moviesPageStore.page
+        );
       }
     }
 
