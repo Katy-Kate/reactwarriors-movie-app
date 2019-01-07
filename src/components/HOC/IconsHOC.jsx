@@ -1,28 +1,19 @@
 import React from "react";
 import CallApi from "../../api/api";
+import _ from "lodash";
 
 export default (Component, type) =>
   class IconsHOC extends React.Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
-        isAdd: false
+        isAdd: this.getAddById({ list: props[type], id: props.item.id })
       };
     }
-
-    findAddedIcon = () => {
-      const isAddedIcon = this.props[type].some(object => {
-        return object.id === this.props.item.id;
-      });
-      if (this.state.isAdd !== isAddedIcon) {
-        this.setState({
-          isAdd: isAddedIcon
-        });
-      }
-    };
+    getAddById = ({ list, id }) => list.some(item => item.id === id);
 
     onClickIcon = () => {
-      if (this.props.session_id) {
+      if (this.props.user) {
         this.setState(
           {
             isAdd: !this.state.isAdd
@@ -36,8 +27,7 @@ export default (Component, type) =>
                 [this.props.name]: this.state.isAdd
               }
             }).then(() => {
-              this.props.getFavoriteMovies();
-              this.props.getWatchlistMovies();
+              this.props.getListAddedMovies([this.props.name]);
             });
           }
         );
@@ -46,11 +36,21 @@ export default (Component, type) =>
       }
     };
 
-    componentDidUpdate = prevProps => {
-      if (prevProps[type] !== this.props[type]) {
-        this.findAddedIcon();
+    componentDidUpdate(prevProps, prevState) {
+      if (
+        !_.isEqual(prevProps[type], this.props[type]) &&
+        this.state.isAdd !==
+          this.getAddById({ list: this.props[type], id: this.props.item.id })
+      ) {
+        this.setState({
+          isAdd: this.getAddById({
+            list: this.props[type],
+            id: this.props.item.id
+          })
+        });
       }
-    };
+    }
+
     render() {
       return (
         <Component

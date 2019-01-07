@@ -2,13 +2,13 @@ import React from "react";
 import MovieItem from "./MovieItem";
 import PropTypes from "prop-types";
 import AppContextHOC from "../HOC/AppContextHOC";
-import MoviesHOC from "./MoviesHOC";
+import MoviesHOC from "../HOC/MoviesHOC";
 
 const MoviesList = ({ movies, toggleModal }) => (
-  <div className="row">
+  <div className="d-flex flex-wrap-reverse">
     {movies.map(movie => {
       return (
-        <div key={movie.id} className="col-6 mb-4">
+        <div key={movie.id} className="col-6 mb-4 align-content-stretch">
           <MovieItem item={movie} toggleModal={toggleModal} />
         </div>
       );

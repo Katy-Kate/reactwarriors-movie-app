@@ -29,6 +29,7 @@ export default class CallApi {
     const { params } = option;
     const queryStringParams = {
       api_key: API_KEY_3,
+      language: "ru-RU",
       ...params
     };
 
@@ -82,19 +83,3 @@ export default class CallApi {
     );
   }
 }
-
-// fetchApi(`${API_URL}/authentication/session?api_key=${API_KEY_3}`, {
-//   method: "DELETE",
-//   headers: {
-//     "content-type": "application/json"
-//   },
-//   body: JSON.stringify({
-//     session_id: this.state.session_id
-//   })
-// }).then(() => {
-//   this.setState({
-//     session_id: null,
-//     user: null
-//   });
-//   cookies.remove("session_id");
-// });
