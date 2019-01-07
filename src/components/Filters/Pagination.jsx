@@ -5,22 +5,13 @@ import { inject, observer } from "mobx-react";
 @inject(({ moviesPageStore }) => ({ moviesPageStore }))
 @observer
 class Pagination extends React.Component {
-  nextPage = () => {
-    this.props.moviesPageStore.onChangePagination({
-      page: this.props.moviesPageStore.page + 1,
-      total_pages: this.props.moviesPageStore.total_pages
-    });
-  };
-
-  prevPage = () => {
-    this.props.moviesPageStore.onChangePagination({
-      page: this.props.moviesPageStore.page - 1,
-      total_pages: this.props.moviesPageStore.total_pages
-    });
-  };
-
   render() {
-    const { page, total_pages } = this.props.moviesPageStore;
+    const {
+      page,
+      nextPage,
+      prevPage,
+      total_pages
+    } = this.props.moviesPageStore;
     return (
       <nav className="d-flex align-items-center">
         <ul className="pagination mb-0 mr-3">
@@ -29,12 +20,12 @@ class Pagination extends React.Component {
               disabled: page === 1
             })}
           >
-            <span className="page-link" onClick={this.prevPage}>
+            <span className="page-link" onClick={prevPage}>
               Назад
             </span>
           </li>
           <li className="page-item">
-            <span className="page-link" onClick={this.nextPage}>
+            <span className="page-link" onClick={nextPage}>
               Вперед
             </span>
           </li>

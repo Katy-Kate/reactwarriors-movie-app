@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
+@inject(({ moviesPageStore }) => ({ moviesPageStore }))
 @observer
 class UISelect extends React.Component {
   static propTypes = {
@@ -10,7 +11,14 @@ class UISelect extends React.Component {
   };
 
   render() {
-    const { id, name, value, onChange, labelText, children } = this.props;
+    const {
+      id,
+      name,
+      value,
+      moviesPageStore: { onChangeFilters },
+      labelText,
+      children
+    } = this.props;
     console.log("UISelect render");
     return (
       <div className="form-group">
@@ -20,7 +28,7 @@ class UISelect extends React.Component {
           className="form-control"
           name={name}
           value={value}
-          onChange={onChange}
+          onChange={onChangeFilters}
         >
           {children}
         </select>

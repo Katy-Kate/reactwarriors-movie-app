@@ -5,7 +5,7 @@ import { action, observable, configure, computed } from "mobx";
 configure({ enforceActions: "always" });
 const cookies = new Cookies();
 
-class Store {
+class UserStore {
   @observable
   user = {};
 
@@ -26,7 +26,13 @@ class Store {
   @action
   updateAuth = ({ user, session_id }) => {
     this.user = user;
-    this.session_id = session_id;
+    if (session_id) {
+      cookies.set("session_id", session_id, {
+        path: "/",
+        maxAge: 2592000
+      });
+      this.session_id = session_id;
+    }
   };
 
   @action
@@ -36,12 +42,11 @@ class Store {
       params: { session_id: this.session_id }
     }).then(() => {
       this.updateAuth({
-        user: {},
-        session_id: {}
+        user: {}
       });
       // this.watchlist = [];
       // this.favorite = [];
     });
   };
 }
-export const userStore = new Store();
+export const userStore = new UserStore();

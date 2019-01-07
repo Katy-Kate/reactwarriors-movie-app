@@ -11,7 +11,6 @@ import { inject, observer } from "mobx-react";
 @observer
 class Filters extends React.Component {
   render() {
-    console.log("render filters");
     return (
       <form className="mb-3">
         <span

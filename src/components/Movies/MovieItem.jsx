@@ -2,11 +2,8 @@ import React from "react";
 import Favorite from "./Favorite";
 import Watchlist from "./Watchlist";
 import { Link } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({
-  moviesPageStore
-}))
 @observer
 class MovieItem extends React.Component {
   render() {

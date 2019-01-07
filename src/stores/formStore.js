@@ -1,11 +1,9 @@
 import CallApi from "../api/api";
-import Cookies from "universal-cookie";
 import { action, observable, configure } from "mobx";
 import { userStore } from "./userStore";
 configure({ enforceActions: "always" });
 
-
-class Store {
+class FormStore {
   @observable
   loginValues = {
     username: "KateTuralnikova",
@@ -17,9 +15,6 @@ class Store {
   errors = {
     base: null
   };
-
-  @observable
-  baseError = null;
 
   @observable
   submitting = false;
@@ -45,15 +40,16 @@ class Store {
   handleBlur = event => {
     const name = event.target.name;
     const errors = this.validateFields();
-    console.log(errors.username);
-    console.log(name);
     this.errors[name] = errors[name];
   };
 
   @action
   onChange = event => {
-    console.log(event.target.name, event.target.value);
     this.loginValues[event.target.name] = event.target.value;
+    this.errors[event.target.name] = "";
+    if (this.errors.base) {
+      this.errors.base = null;
+    }
   };
 
   @action
@@ -62,9 +58,7 @@ class Store {
     const errors = this.validateFields();
     if (Object.keys(errors).length > 0) {
       this.updateErrors(errors);
-      //this.errors = errors;
     } else {
-      this.onChangeBaseError();
       this.onSubmit();
     }
   };
@@ -129,4 +123,4 @@ class Store {
       });
   };
 }
-export const formStore = new Store();
+export const formStore = new FormStore();
