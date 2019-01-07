@@ -28,8 +28,8 @@ class MovieItem extends React.Component {
           </Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
           <div className="d-flex justify-content-between mt-3">
-            <Watchlist item={item} name="watchlist" />
-            <Favorite item={item} name="favorite" />
+            {/* <Watchlist item={item} name="watchlist" />
+            <Favorite item={item} name="favorite" /> */}
           </div>
         </div>
       </div>

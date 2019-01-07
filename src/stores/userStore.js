@@ -24,6 +24,20 @@ class UserStore {
   }
 
   @action
+  getAuth() {
+    const session_id = cookies.get("session_id");
+    if (session_id) {
+      CallApi.get("/account", {
+        params: { session_id: session_id }
+      }).then(user => {
+        this.updateAuth({ user });
+        // this.getListAddedMovies("favorite");
+        // this.getListAddedMovies("watchlist");
+      });
+    }
+  }
+
+  @action
   updateAuth = ({ user, session_id }) => {
     this.user = user;
     if (session_id) {

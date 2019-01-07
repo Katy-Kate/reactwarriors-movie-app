@@ -5,11 +5,6 @@ import { observer, inject } from "mobx-react";
 @inject(({ moviesPageStore }) => ({ moviesPageStore }))
 @observer
 class UISelect extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
-  };
-
   render() {
     const {
       id,

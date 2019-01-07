@@ -1,7 +1,6 @@
 import React from "react";
 import Filters from "../../Filters/Filters";
 import MoviesList from "../../Movies/MoviesList";
-import AppContextHOC from "../../HOC/AppContextHOC";
 
 class MoviesPage extends React.Component {
   render() {
@@ -25,4 +24,4 @@ class MoviesPage extends React.Component {
   }
 }
 
-export default AppContextHOC(MoviesPage);
+export default MoviesPage;

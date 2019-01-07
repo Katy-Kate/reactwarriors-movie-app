@@ -4,22 +4,20 @@ import classNames from "classnames";
 import { inject, observer } from "mobx-react";
 
 @inject(({ formStore }) => ({
-  onChange: formStore.onChange,
-  handleBlur: formStore.handleBlur
+  formStore
 }))
 @observer
 class Field extends React.Component {
   render() {
     const {
+      formStore: { onChange, handleBlur },
       id,
       labelText,
       type,
       placeholderText,
       name,
       value,
-      onChange,
-      errors,
-      handleBlur
+      errors
     } = this.props;
 
     return (
