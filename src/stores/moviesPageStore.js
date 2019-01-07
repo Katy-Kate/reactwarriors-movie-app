@@ -10,12 +10,24 @@ const defaultFilters = {
 };
 
 class MoviesPageStore {
+  constructor() {
+    reaction(() => this.page, () => this.getMovies());
+    reaction(
+      () => values(this.filters),
+      () => {
+        this.onChangePage(1);
+        this.getMovies();
+      }
+    );
+  }
+
   @observable
   filters = {
     sort_by: "popularity.desc",
     primary_release_year: "Все фильмы",
     with_genres: []
   };
+
   @observable
   genres = [];
 
@@ -135,9 +147,3 @@ class MoviesPageStore {
   };
 }
 export const moviesPageStore = new MoviesPageStore();
-
-reaction(() => moviesPageStore.page, () => moviesPageStore.getMovies());
-reaction(
-  () => values(moviesPageStore.filters),
-  () => moviesPageStore.getMovies()
-);
