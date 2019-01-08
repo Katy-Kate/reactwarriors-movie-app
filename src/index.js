@@ -4,14 +4,14 @@ import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stylesheets/index.css";
 import * as serviceWorker from "./serviceWorker";
-import { formStore } from "./stores/formStore";
+import { loginFormStore } from "./stores/loginFormStore";
 import { userStore } from "./stores/userStore";
 import { moviesPageStore } from "./stores/moviesPageStore";
 import { Provider } from "mobx-react";
 
 ReactDOM.render(
   <Provider
-    formStore={formStore}
+    loginFormStore={loginFormStore}
     userStore={userStore}
     moviesPageStore={moviesPageStore}
   >

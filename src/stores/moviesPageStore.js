@@ -117,6 +117,7 @@ class MoviesPageStore {
     this.total_pages = totalPages;
   };
 
+  @action
   getGenres = () => {
     CallApi.get("/genre/movie/list", { params: { language: "ru - RU" } }).then(
       data => {
@@ -125,6 +126,7 @@ class MoviesPageStore {
     );
   };
 
+  @action
   getMovies = () => {
     this.changeLoading(true);
     const { sort_by, primary_release_year, with_genres } = this.filters;

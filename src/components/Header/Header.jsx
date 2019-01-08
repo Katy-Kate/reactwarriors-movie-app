@@ -3,9 +3,9 @@ import UserMenu from "./UserMenu";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 
-@inject(({ formStore, userStore }) => ({
+@inject(({ loginFormStore, userStore }) => ({
   userStore,
-  formStore
+  loginFormStore
 }))
 @observer
 class Header extends React.Component {
@@ -26,7 +26,7 @@ class Header extends React.Component {
             <button
               className="btn btn-success"
               type="button"
-              onClick={this.props.formStore.toggleModal}
+              onClick={this.props.loginFormStore.toggleModal}
             >
               Login
             </button>

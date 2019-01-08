@@ -4,10 +4,10 @@ import _ from "lodash";
 import { inject, observer } from "mobx-react";
 
 export default (Component, type) =>
-  @inject(({ moviesPageStore, userStore, formStore }) => ({
+  @inject(({ moviesPageStore, userStore, loginFormStore }) => ({
     moviesPageStore,
     userStore,
-    formStore
+    loginFormStore
   }))
   @observer
   class IconsHOC extends React.Component {
@@ -42,7 +42,7 @@ export default (Component, type) =>
           }
         );
       } else {
-        this.props.formStore.toggleModal();
+        this.props.loginFormStore.toggleModal();
       }
     };
 

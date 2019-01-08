@@ -3,7 +3,7 @@ import { action, observable, configure } from "mobx";
 import { userStore } from "./userStore";
 configure({ enforceActions: "always" });
 
-class FormStore {
+class LoginFormStore {
   @observable
   loginValues = {
     username: "KateTuralnikova",
@@ -71,10 +71,6 @@ class FormStore {
   };
 
   @action
-  onChangeBaseError = (error: {}) => {
-    this.errors.base = error;
-  };
-  @action
   toggleModal = () => {
     this.showLoginModal = !this.showLoginModal;
   };
@@ -117,10 +113,8 @@ class FormStore {
       .catch(error => {
         console.log("error", error);
         this.onChangeSubmiting(false);
-        baseError = error.status_message;
-        this.onChangeBaseError(baseError);
-        // this.onChangeBaseError(error.status_message);
+        this.updateErrors({ base: error.status_message });
       });
   };
 }
-export const formStore = new FormStore();
+export const loginFormStore = new LoginFormStore();

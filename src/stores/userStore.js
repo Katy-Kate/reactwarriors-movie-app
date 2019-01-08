@@ -50,14 +50,18 @@ class UserStore {
   };
 
   @action
+  clearAuth = () => {
+    this.user = {};
+    this.session_id = null;
+  };
+
+  @action
   logOut = () => {
     cookies.remove("session_id", { path: "/" });
     CallApi.delete("/authentication/session", {
       params: { session_id: this.session_id }
     }).then(() => {
-      this.updateAuth({
-        user: {}
-      });
+      this.clearAuth();
       // this.watchlist = [];
       // this.favorite = [];
     });

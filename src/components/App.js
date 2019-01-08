@@ -9,9 +9,9 @@ import { observer, inject } from "mobx-react";
 
 export const AppContext = React.createContext();
 
-@inject(({ formStore, userStore }) => ({
-  formStore: formStore,
-  userStore: userStore
+@inject(({ loginFormStore, userStore }) => ({
+  loginFormStore,
+  userStore
 }))
 @observer
 class App extends React.Component {

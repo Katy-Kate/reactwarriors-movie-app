@@ -3,14 +3,14 @@ import classNames from "classnames";
 
 import { inject, observer } from "mobx-react";
 
-@inject(({ formStore }) => ({
-  formStore
+@inject(({ loginFormStore }) => ({
+  loginFormStore
 }))
 @observer
 class Field extends React.Component {
   render() {
     const {
-      formStore: { onChange, handleBlur },
+      loginFormStore: { onChange, handleBlur },
       id,
       labelText,
       type,

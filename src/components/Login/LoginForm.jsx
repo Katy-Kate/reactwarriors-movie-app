@@ -3,14 +3,14 @@ import Field from "./Field";
 
 import { inject, observer } from "mobx-react";
 
-@inject(({ formStore }) => ({
-  formStore
+@inject(({ loginFormStore }) => ({
+  loginFormStore
 }))
 @observer
 class LoginForm extends React.Component {
   render() {
     const {
-      formStore: { loginValues, errors, submitting, onLogin }
+      loginFormStore: { loginValues, errors, submitting, onLogin }
     } = this.props;
 
     return (
