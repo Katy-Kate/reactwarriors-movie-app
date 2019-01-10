@@ -126,7 +126,6 @@ class MoviesPageStore {
     );
   };
 
-  @action
   getMovies = () => {
     this.changeLoading(true);
     const { sort_by, primary_release_year, with_genres } = this.filters;

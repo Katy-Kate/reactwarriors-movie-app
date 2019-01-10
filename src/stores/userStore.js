@@ -40,13 +40,11 @@ class UserStore {
   @action
   updateAuth = ({ user, session_id }) => {
     this.user = user;
-    if (session_id) {
       cookies.set("session_id", session_id, {
         path: "/",
         maxAge: 2592000
       });
       this.session_id = session_id;
-    }
   };
 
   @action
