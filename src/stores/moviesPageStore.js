@@ -61,7 +61,6 @@ class MoviesPageStore {
     this.page = page;
   };
 
-  @action
   onClearFilters = () => {
     this.updateFilters(defaultFilters);
     this.onChangePage(1);
@@ -85,7 +84,7 @@ class MoviesPageStore {
       }
     });
   };
-  @action
+
   resetGenres = () => {
     this.onChangeFilters({
       target: {
@@ -117,7 +116,6 @@ class MoviesPageStore {
     this.total_pages = totalPages;
   };
 
-  @action
   getGenres = () => {
     CallApi.get("/genre/movie/list", { params: { language: "ru - RU" } }).then(
       data => {

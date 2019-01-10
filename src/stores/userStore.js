@@ -23,7 +23,6 @@ class UserStore {
     return Boolean(Object.keys(this.user).length);
   }
 
-  @action
   getAuth() {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -40,11 +39,11 @@ class UserStore {
   @action
   updateAuth = ({ user, session_id }) => {
     this.user = user;
-      cookies.set("session_id", session_id, {
-        path: "/",
-        maxAge: 2592000
-      });
-      this.session_id = session_id;
+    cookies.set("session_id", session_id, {
+      path: "/",
+      maxAge: 2592000
+    });
+    this.session_id = session_id;
   };
 
   @action
@@ -53,7 +52,6 @@ class UserStore {
     this.session_id = null;
   };
 
-  @action
   logOut = () => {
     cookies.remove("session_id", { path: "/" });
     CallApi.delete("/authentication/session", {
