@@ -1,23 +1,17 @@
 import React from "react";
 import classNames from "classnames";
+import { inject, observer } from "mobx-react";
 
-export default class Pagination extends React.Component {
-  nextPage = () => {
-    this.props.onChangePagination({
-      page: this.props.page + 1,
-      total_pages: this.props.total_pages
-    });
-  };
-
-  prevPage = page => event => {
-    this.props.onChangePagination({
-      page: this.props.page - 1,
-      total_pages: this.props.total_pages
-    });
-  };
-
+@inject(({ moviesPageStore }) => ({ moviesPageStore }))
+@observer
+class Pagination extends React.Component {
   render() {
-    const { page, total_pages } = this.props;
+    const {
+      page,
+      nextPage,
+      prevPage,
+      total_pages
+    } = this.props.moviesPageStore;
     return (
       <nav className="d-flex align-items-center">
         <ul className="pagination mb-0 mr-3">
@@ -26,12 +20,12 @@ export default class Pagination extends React.Component {
               disabled: page === 1
             })}
           >
-            <span className="page-link" onClick={this.prevPage(page)}>
+            <span className="page-link" onClick={prevPage}>
               Назад
             </span>
           </li>
           <li className="page-item">
-            <span className="page-link" onClick={this.nextPage}>
+            <span className="page-link" onClick={nextPage}>
               Вперед
             </span>
           </li>
@@ -43,3 +37,4 @@ export default class Pagination extends React.Component {
     );
   }
 }
+export default Pagination;

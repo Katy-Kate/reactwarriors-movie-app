@@ -1,8 +1,15 @@
 import React from "react";
 import CallApi from "../../api/api";
 import _ from "lodash";
+import { inject, observer } from "mobx-react";
 
 export default (Component, type) =>
+  @inject(({ moviesPageStore, userStore, loginFormStore }) => ({
+    moviesPageStore,
+    userStore,
+    loginFormStore
+  }))
+  @observer
   class IconsHOC extends React.Component {
     constructor(props) {
       super(props);
@@ -13,26 +20,29 @@ export default (Component, type) =>
     getAddById = ({ list, id }) => list.some(item => item.id === id);
 
     onClickIcon = () => {
-      if (this.props.user) {
+      if (this.props.userStore.isAuth) {
         this.setState(
           {
             isAdd: !this.state.isAdd
           },
           () => {
-            CallApi.post(`/account/${this.props.user.id}/${this.props.name}`, {
-              params: { session_id: this.props.session_id },
-              body: {
-                media_type: "movie",
-                media_id: this.props.item.id,
-                [this.props.name]: this.state.isAdd
+            CallApi.post(
+              `/account/${this.props.userStore.user.id}/${this.props.name}`,
+              {
+                params: { session_id: this.props.userStore.session_id },
+                body: {
+                  media_type: "movie",
+                  media_id: this.props.item.id,
+                  [this.props.name]: this.state.isAdd
+                }
               }
-            }).then(() => {
+            ).then(() => {
               this.props.getListAddedMovies([this.props.name]);
             });
           }
         );
       } else {
-        this.props.toggleModal();
+        this.props.loginFormStore.toggleModal();
       }
     };
 

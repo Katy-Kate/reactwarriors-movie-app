@@ -1,7 +1,10 @@
 import React from "react";
 import UISelect from "../UIComponents/UISelect";
+import { inject, observer } from "mobx-react";
 
-export default class PrimaryReLeaseYear extends React.Component {
+@inject(({ moviesPageStore }) => ({ moviesPageStore }))
+@observer
+class PrimaryReLeaseYear extends React.Component {
   static defaultProps = {
     options: [
       {
@@ -23,14 +26,15 @@ export default class PrimaryReLeaseYear extends React.Component {
     ]
   };
   render() {
-    const { primary_release_year, onChangeFilters, options } = this.props;
-    console.log("PrimaryReleaseYear render");
+    const {
+      moviesPageStore: { filters },
+      options
+    } = this.props;
     return (
       <UISelect
         id="primary_release_year"
         name="primary_release_year"
-        value={primary_release_year}
-        onChange={onChangeFilters}
+        value={filters.primary_release_year}
         htmlFor={options[0].value}
         labelText="Год релиза:"
       >
@@ -43,3 +47,4 @@ export default class PrimaryReLeaseYear extends React.Component {
     );
   }
 }
+export default PrimaryReLeaseYear;

@@ -5,6 +5,7 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkRegular } from "@fortawesome/free-regular-svg-icons";
 import AppContextHOC from "../HOC/AppContextHOC";
 import IconsHOC from "../HOC/IconsHOC";
+
 library.add(faBookmark, bookmarkRegular);
 
 class Watchlist extends React.Component {

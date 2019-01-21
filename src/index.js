@@ -3,10 +3,22 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stylesheets/index.css";
-
 import * as serviceWorker from "./serviceWorker";
+import { loginFormStore } from "./stores/loginFormStore";
+import { userStore } from "./stores/userStore";
+import { moviesPageStore } from "./stores/moviesPageStore";
+import { Provider } from "mobx-react";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider
+    loginFormStore={loginFormStore}
+    userStore={userStore}
+    moviesPageStore={moviesPageStore}
+  >
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

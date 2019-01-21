@@ -1,11 +1,15 @@
 import React from "react";
 import UserMenu from "./UserMenu";
 import { Link } from "react-router-dom";
+import { observer, inject } from "mobx-react";
 
-export default class Header extends React.Component {
+@inject(({ loginFormStore, userStore }) => ({
+  userStore,
+  loginFormStore
+}))
+@observer
+class Header extends React.Component {
   render() {
-    const { user, toggleModal, session_id, logOut } = this.props;
-
     return (
       <nav className="navbar navbar-dark bg-secondary">
         <div className="container">
@@ -16,13 +20,13 @@ export default class Header extends React.Component {
               </Link>
             </li>
           </ul>
-          {user ? (
-            <UserMenu session_id={session_id} logOut={logOut} />
+          {this.props.userStore.isAuth ? (
+            <UserMenu />
           ) : (
             <button
               className="btn btn-success"
               type="button"
-              onClick={toggleModal}
+              onClick={this.props.loginFormStore.toggleModal}
             >
               Login
             </button>
@@ -32,3 +36,4 @@ export default class Header extends React.Component {
     );
   }
 }
+export default Header;

@@ -2,10 +2,12 @@ import React from "react";
 import Favorite from "./Favorite";
 import Watchlist from "./Watchlist";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
-export default class MovieItem extends React.Component {
+@observer
+class MovieItem extends React.Component {
   render() {
-    const { item, toggleModal } = this.props;
+    const { item } = this.props;
     return (
       <div className="card " style={{ width: "100%" }}>
         <div className="card-img--wrap">
@@ -26,11 +28,12 @@ export default class MovieItem extends React.Component {
           </Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
           <div className="d-flex justify-content-between mt-3">
-            <Watchlist toggleModal={toggleModal} item={item} name="watchlist" />
-            <Favorite toggleModal={toggleModal} item={item} name="favorite" />
+            {/* <Watchlist item={item} name="watchlist" />
+            <Favorite item={item} name="favorite" /> */}
           </div>
         </div>
       </div>
     );
   }
 }
+export default MovieItem;

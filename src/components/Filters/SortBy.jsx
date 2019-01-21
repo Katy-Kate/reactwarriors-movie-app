@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { inject, observer } from "mobx-react";
 
-export default class SortBy extends React.Component {
-  static propTypes = {
-    sort_by: PropTypes.string.isRequired,
-    onChangeFilters: PropTypes.func.isRequired
-  };
+@inject(({ moviesPageStore }) => ({
+  moviesPageStore
+}))
+@observer
+class SortBy extends React.Component {
   static defaultProps = {
     options: [
       {
@@ -28,7 +29,10 @@ export default class SortBy extends React.Component {
   };
 
   render() {
-    const { sort_by, onChangeFilters, options } = this.props;
+    const {
+      filters: { sort_by },
+      onChangeFilters
+    } = this.props.moviesPageStore;
     return (
       <div className="form-group">
         <label htmlFor="sort_by">Сортировать по:</label>
@@ -39,7 +43,7 @@ export default class SortBy extends React.Component {
           value={sort_by}
           onChange={onChangeFilters}
         >
-          {options.map(option => (
+          {this.props.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -49,3 +53,4 @@ export default class SortBy extends React.Component {
     );
   }
 }
+export default SortBy;
