@@ -9,7 +9,7 @@ export default class UISelect extends React.Component {
 
   render() {
     const { id, name, value, onChange, labelText, children } = this.props;
-    console.log("UISelect render");
+
     return (
       <div className="form-group">
         <label htmlFor={id}>{labelText}</label>;

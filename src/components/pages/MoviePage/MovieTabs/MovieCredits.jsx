@@ -19,7 +19,6 @@ export default class MovieCredits extends React.Component {
   };
 
   render() {
-    console.log("render", this.props);
     return (
       <div>
         <h2 className="characters-title">В ролях:</h2>

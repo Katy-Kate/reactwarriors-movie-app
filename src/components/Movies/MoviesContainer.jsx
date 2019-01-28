@@ -39,13 +39,7 @@ export default class MoviesContainer extends React.Component {
     this.getMovies(this.props.filters, this.props.page);
   }
   componentDidUpdate(prevProps) {
-    if (
-      !_.isEqual(this.props.filters, prevProps.filters)
-      // this.props.filters !== prevProps.filters
-      // this.props.filters.sort_by !== prevProps.filters.sort_by ||
-      // this.props.filters.primary_release_year !==
-      //   prevProps.filters.primary_release_year
-    ) {
+    if (!_.isEqual(this.props.filters, prevProps.filters)) {
       this.props.onChangePagination({ page: 1 });
       this.getMovies(this.props.filters, 1);
     }

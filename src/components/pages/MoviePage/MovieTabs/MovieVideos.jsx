@@ -8,10 +8,7 @@ export default class MovieVideos extends React.Component {
       videos: []
     };
   }
-  // componentDidUpdate = prevProps => {
-  //   if (this.props.movie !== prevProps.movie) {
-  //     console.log("componentDidUpdate", this.props.movie);
-  //   }
+
   componentDidMount = () => {
     if (this.props.movieId) {
       CallApi.get(`/movie/${this.props.movieId}/videos`, {
@@ -20,7 +17,6 @@ export default class MovieVideos extends React.Component {
         this.setState({
           videos: data.results
         });
-        console.log(data.results);
       });
     }
   };

@@ -14,7 +14,7 @@ export default class Filters extends React.Component {
       onChangeFilters,
       onChangePagination
     } = this.props;
-    console.log("render filters");
+
     return (
       <form className="mb-3">
         <span onClick={onClearFilters} className="btn btn-light border">

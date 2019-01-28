@@ -26,7 +26,6 @@ class LoginForm extends React.Component {
   };
 
   handleBlur = input => {
-    console.log("input", input.target.id);
     const inputName = input.target.id;
 
     if (this.state[inputName] === "") {
@@ -120,7 +119,6 @@ class LoginForm extends React.Component {
       })
 
       .catch(error => {
-        console.log("error", error);
         this.setState({
           submitting: false,
           errors: {
@@ -140,7 +138,6 @@ class LoginForm extends React.Component {
         }
       }));
     } else {
-      console.log("Submit");
       this.onSubmit();
     }
   };

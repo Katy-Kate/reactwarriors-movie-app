@@ -65,8 +65,6 @@ export default class App extends React.Component {
         watchlist: [],
         favorite: []
       });
-
-      console.log("logout");
     });
   };
 
@@ -93,8 +91,6 @@ export default class App extends React.Component {
           [type]: [...data.results]
         });
       });
-    } else {
-      console.log("we don't have user");
     }
   };
   componentDidUpdate = (prevProps, prevState) => {
@@ -133,14 +129,14 @@ export default class App extends React.Component {
             user={user}
             showLoginModal={showLoginModal}
             toggleModal={this.toggleModal}
-            session_id={this.state.session_id}
+            session_id={session_id}
             logOut={this.logOut}
           />
           <Route exact path="/" component={MoviesPage} />
           <Route path="/movie/:id" component={MoviePage} />
           <Login
             toggleModal={this.toggleModal}
-            showLoginModal={this.state.showLoginModal}
+            showLoginModal={showLoginModal}
           />
         </AppContext.Provider>
       </BrowserRouter>
