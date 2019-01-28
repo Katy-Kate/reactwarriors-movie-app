@@ -5,9 +5,7 @@ import Pagination from "./Pagination";
 import GenresContainer from "./GenresContainer";
 import { inject, observer } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({
-  moviesPageStore
-}))
+@inject("moviesPageStore")
 @observer
 class Filters extends React.Component {
   render() {

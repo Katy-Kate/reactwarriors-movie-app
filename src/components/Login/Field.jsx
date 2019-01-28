@@ -3,9 +3,7 @@ import classNames from "classnames";
 
 import { inject, observer } from "mobx-react";
 
-@inject(({ loginFormStore }) => ({
-  loginFormStore
-}))
+@inject("loginFormStore")
 @observer
 class Field extends React.Component {
   render() {

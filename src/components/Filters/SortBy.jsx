@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({
-  moviesPageStore
-}))
+@inject("moviesPageStore")
 @observer
 class SortBy extends React.Component {
   static defaultProps = {

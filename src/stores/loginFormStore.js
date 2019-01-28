@@ -83,7 +83,6 @@ class LoginFormStore {
   onSubmit = () => {
     this.onChangeSubmiting(true);
     let session_id = null;
-    let baseError = null;
     CallApi.get("/authentication/token/new")
       .then(data => {
         return CallApi.post("/authentication/token/validate_with_login", {

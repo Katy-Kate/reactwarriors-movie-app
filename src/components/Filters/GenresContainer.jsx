@@ -2,7 +2,7 @@ import React from "react";
 import Genres from "./Genres";
 import { observer, inject } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({ moviesPageStore }))
+@inject("moviesPageStore")
 @observer
 class GenresContainer extends React.Component {
   componentDidMount() {

@@ -1,6 +1,4 @@
 import React from "react";
-import Favorite from "../../Movies/Favorite";
-import Watchlist from "../../Movies/Watchlist";
 
 export default class MovieDesc extends React.Component {
   render() {
@@ -33,14 +31,7 @@ export default class MovieDesc extends React.Component {
             </div>
             <div className="movie_header__overview col-xs-12 col-md-8">
               <h2 className="movie_title ">{movie.original_title}</h2>
-              <div className="row movie_icons d-flex justify-content-around p-4">
-                <div className="movie-page_icon">
-                  <Watchlist item={movie} name="watchlist" />
-                </div>
-                <div className="movie-page_icon">
-                  <Favorite item={movie} name="favorite" />
-                </div>
-              </div>
+
               <p>{movie.overview}</p>
             </div>
           </div>

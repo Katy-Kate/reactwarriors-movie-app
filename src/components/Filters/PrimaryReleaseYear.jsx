@@ -2,7 +2,7 @@ import React from "react";
 import UISelect from "../UIComponents/UISelect";
 import { inject, observer } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({ moviesPageStore }))
+@inject("moviesPageStore")
 @observer
 class PrimaryReLeaseYear extends React.Component {
   static defaultProps = {

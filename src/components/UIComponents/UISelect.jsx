@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { observer, inject } from "mobx-react";
 
 @inject(({ moviesPageStore }) => ({ moviesPageStore }))
@@ -14,7 +13,7 @@ class UISelect extends React.Component {
       labelText,
       children
     } = this.props;
-    console.log("UISelect render");
+
     return (
       <div className="form-group">
         <label htmlFor={id}>{labelText}</label>

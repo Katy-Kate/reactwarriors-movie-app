@@ -3,9 +3,7 @@ import Loader from "../Loader";
 import { inject, observer } from "mobx-react";
 
 export default Component =>
-  @inject(({ moviesPageStore }) => ({
-    moviesPageStore
-  }))
+  @inject("moviesPageStore")
   @observer
   class MoviesHOC extends React.Component {
     componentDidMount() {

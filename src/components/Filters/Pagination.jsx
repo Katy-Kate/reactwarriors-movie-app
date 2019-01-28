@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { inject, observer } from "mobx-react";
 
-@inject(({ moviesPageStore }) => ({ moviesPageStore }))
+@inject("moviesPageStore")
 @observer
 class Pagination extends React.Component {
   render() {

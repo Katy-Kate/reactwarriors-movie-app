@@ -34,7 +34,7 @@ input.invalid {
   height: 100%;
 }
 .card-img--wrap {
-  max-height: 60%;
+  height: 60%;
   overflow: hidden;
 }
 .card img {

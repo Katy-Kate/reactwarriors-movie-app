@@ -3,9 +3,7 @@ import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
 import { observer, inject } from "mobx-react";
 
-@inject(({ loginFormStore }) => ({
-  loginFormStore
-}))
+@inject("loginFormStore")
 @observer
 class Login extends React.Component {
   render() {
